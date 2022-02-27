@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-image: url('../media/images/bosque.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #104c71;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.login-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 450px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(6, 61, 91, 0.8);
+    padding: 20px 10px;
+}
+
+.login-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 180px;
+    overflow: hidden;
+    margin: auto;
+}
+
+.login-img img {
+    width: 100%;
+}
+
+.title-log {
+    color: #fff;
+    text-align: center;
+}
+
+.separador {
+    color: white;
+}
+
+.form-log {
+    padding: 10px;
+}
+
+.form-log label {
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.campo-group {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+.icon-campo {
+    font-size: 20px;
+    position: absolute;
+    left: 5px;
+    color: #fff;
+    opacity: 0.7;
+}
+
+.campo {
+    width: 100%;
+    font-size: 20px;
+    padding-left: 30px;
+    color: #fff;
+    background: none;
+    border: none;
+    border-bottom: solid 2px #fff;
+    margin-bottom: 30px;
+}
+
+.campo::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-start {
+    display: block;
+    width: 90%;
+    max-width: 250px;
+    padding: 10px;
+    margin: auto;
+    border: none;
+    background: none;
+    background-color: #104c71;
+    color: #fff;
+    font-size: 20px;
+}
+
+.author-g {
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    margin-top: 10px;
+}

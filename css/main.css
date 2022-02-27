@@ -1,0 +1,38 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.contenedor{
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px rgba(0,0,0,0.5);
+    background-color: rgba(235, 237, 239,0.5);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.texto{
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.myButton{
+    padding: 10px;
+    background-color: #76D7C4;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    box-shadow: 3px 3px 5px rgba(0, 174, 255, 1);
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.5s;
+}
