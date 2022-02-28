@@ -2,14 +2,12 @@
 <link rel="stylesheet" href="css/main.css">
 
 <div class="contenedor">
-    <h1 class="title">Bienvenidos a ANDICApp</h1>
+    <h1 class="title">Bienvenidos a VentaSoft</h1>
     <h4 class="subtitle">¡Hola <?php echo $_SESSION['NameUs']; ?> !</h4>
     <h5 class="fecha">Marzo 2022</h5>
     <hr class="separador">
     <p class="texto">
-        El sistema fue logrado con la colaboracion del TecNM campus Tláhuac
-        y ANDIC A.C. que con ayuda de los alumnos de la institucion se logro
-        dicho proyecto.
+        Sistema punto de venta, desarrollado por LUMEGA-MX ESTUDIOS, si quieres ver mas sobre nuestros productos o servicios.
     </p>
 
     <center>

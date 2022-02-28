@@ -13,7 +13,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>.:ANDIC A.C.:.</title>
+    <title>.:LUMEGA-MX:.</title>
     <link rel="icon" href="media/icons/Logo.png">
     <link rel="stylesheet" href="lib/bootstrap-5/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.min.css">
@@ -26,7 +26,7 @@ session_start();
         <div class="login-img">
             <img src="media/images/Woman-Avatar.png" alt="">
         </div>
-        <h1 class="title-log">ANDIC A.C.</h1>
+        <h1 class="title-log">VentaSoft</h1>
         <hr class="separador">
         <form id="form-log" class="form-log" method="post" onsubmit="return logIn()">
             <label>Nombre de usuario:</label>
