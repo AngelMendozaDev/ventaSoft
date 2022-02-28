@@ -25,5 +25,62 @@ class funciones extends config{
 
         return 2;
     }
+
+    public function getProductos(){
+        $conexion = config::conexion();
+        
+        if($conexion == false)
+            return 3;
+        $query = $conexion->prepare("select * from allProducts");
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result;
+    }
+
+    /*******************
+     * Crud Productos
+     */
+
+    public function newProd($object){
+        $conexion = config::conexion();
+        
+        if($conexion == false)
+            return 3;
+            else if(self::existe($object['codeBars']) == 1){
+                return "exist";
+            }
+
+        $query = $conexion->prepare("CALL newProd(?,?,?,?,?)");
+        $query->bind_param('sssss',$object['codeBars'],strtoupper($object['nameProduct']), $object['unidad'], $object['price'], $object['user']);
+        $response = $query->execute();
+
+        $query->close();
+
+        return $response;
+    }
+
+    public function existe ($codigo){
+        $conexion = config::conexion();
+        
+        if($conexion == false)
+            return 3;
+        
+            $query = $conexion->prepare("SELECT codigo FROM producto WHERE codigo = ?");
+            $query->bind_param('s',$codigo);
+            $query->execute();
+
+            $result = $query->get_result();
+
+            $query->close();
+
+            if($result->num_rows > 0){
+                return 1;
+            }
+            return 0;
+    }
 }
 ?>

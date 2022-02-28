@@ -1,3 +1,113 @@
 <?php require_once "head.php"; ?>
+<link rel="stylesheet" href="lib/datatable/css/dataTables.bootstrap5.min.css">
+<?php
+    require_once "classes/funciones.php";
+    $modelo = new funciones();
+    $result = $modelo->getProductos();
+?>
+
+<div class="cont-g">
+    <h1>Control general de Productos</h1>
+
+    <div class="alert alert-success" id="descrip" role="alert">
+        <span class="btn-close" onclick="closeAlert()"><i class="fas fa-times"></i></span>
+        Dentro de este aparttado podras, dar de alta, modificar o eliminar todo lo referente a
+        los productos que maneja en su inventario.
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        &nbsp;
+        Alta de Producto
+    </button>
+
+    <hr style="width: 80%; color: #fff; margin: auto; margin-top: 25px; margin-bottom: 25px;">
+
+    <div class="contenedor-table">
+        <table class="table table-hover table-responsive" id="tableProd">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Unidad de Venta</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center table-light">
+                <?php while( $key = $result->fetch_assoc()){ ?>
+                <tr>
+                    <td><?php echo $key['codigo'] ?></td>
+                    <td><?php echo $key['nombre'] ?></td>
+                    <td><?php echo $key['unidad'] ?></td>
+                    <td><?php echo $key['precio'] ?></td>
+                    <td>
+                        <button class="btn btn-small btn-primary">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Alta de Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" onsubmit="return addProd() " id="formAddProd">
+                    <input type="text" name="user" value="<?php echo $_SESSION['ID'] ?>" readonly hidden>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                        <input type="text" class="form-control" name="codeBars" placeholder="Código de Barras" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" maxlength="20" style="text-transform: uppercase;" class="form-control" name="nameProduct" placeholder="Nombre del Producto" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Unidad de Venta</span>
+                        <select class="form-select" name="unidad" id="unidadV" required>
+                            <option value="0" selected="true" disabled>Selecciona una opcion</option>
+                            <option value="KG">KILOGRAMO</option>
+                            <option value="L">LITRO</option>
+                            <option value="PZ">PIEZA</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Precio Unitario:</span>
+                        <input type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
+                    </div>
+
+                    <center>
+                        <button type="submit" class="btn btn-small btn-success ">
+                            <i class="fas fa-save"></i>
+                            &nbsp;
+                            Agregar Producto
+                        </button>
+                    </center>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar Ventana</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php require_once "foot.php"; ?>
+<script src="lib/datatable/js/jquery.dataTables.min.js"></script>
+<script src="lib/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="js/products.js"></script>

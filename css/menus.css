@@ -111,6 +111,7 @@ body::before {
     color: #ffff;
     left: -400px;
     transition: all 0.5s;
+    z-index: 999;
 }
 
 .activo {
