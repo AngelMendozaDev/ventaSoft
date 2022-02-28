@@ -1,0 +1,29 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.btn-popover {
+    position: relative;
+    opacity: 0.6;
+}
+
+.msg-pop {
+    display: none;
+    position: absolute;
+    width: 150px;
+    height: auto;
+    top: -5px;
+    left: -140px;
+    font-size: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+}
+
+.btn-popover:hover .msg-pop {
+    display: block;
+    left: -150px;
+    transition: all 0.5s;
+    background-color: rgba(0, 0, 0, 1);
+}

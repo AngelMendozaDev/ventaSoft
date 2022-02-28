@@ -1,9 +1,10 @@
 <?php require_once "head.php"; ?>
 <link rel="stylesheet" href="lib/datatable/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="css/products.css">
 <?php
-    require_once "classes/funciones.php";
-    $modelo = new funciones();
-    $result = $modelo->getProductos();
+require_once "classes/funciones.php";
+$modelo = new funciones();
+$result = $modelo->getProductos();
 ?>
 
 <div class="cont-g">
@@ -16,7 +17,7 @@
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="$('#formAddProd')[0].reset();">
         <i class="fa fa-plus-circle" aria-hidden="true"></i>
         &nbsp;
         Alta de Producto
@@ -36,18 +37,30 @@
                 </tr>
             </thead>
             <tbody class="text-center table-light">
-                <?php while( $key = $result->fetch_assoc()){ ?>
-                <tr>
-                    <td><?php echo $key['codigo'] ?></td>
-                    <td><?php echo $key['nombre'] ?></td>
-                    <td><?php echo $key['unidad'] ?></td>
-                    <td><?php echo $key['precio'] ?></td>
-                    <td>
-                        <button class="btn btn-small btn-primary">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
+                <?php while ($key = $result->fetch_assoc()) { ?>
+                    <tr>
+                        <td><?php echo $key['codigo'] ?></td>
+                        <td><?php echo $key['nombre'] ?></td>
+                        <td><?php echo $key['unidad'] ?></td>
+                        <td>$<?php echo $key['precio'] ?></td>
+                        <td>
+                            <button class="btn btn-small btn-primary btn-popover">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <span class="msg-pop">
+                                    Ver la foto de Producto (Working)
+                                </span>
+                            </button>
+
+                            <button class="btn btn-small btn-warning" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="getInfo('<?php echo $key['codigo'] ?>')">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </button>
+
+                            <button class="btn btn-small btn-danger">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+
+                        </td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
@@ -61,19 +74,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addProductModalLabel">Alta de Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" onsubmit="return addProd() " id="formAddProd">
+
                     <input type="text" name="user" value="<?php echo $_SESSION['ID'] ?>" readonly hidden>
+                    <input type="text" id="action" name="action" readonly>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-barcode"></i></span>
-                        <input type="text" class="form-control" name="codeBars" placeholder="Código de Barras" required>
+                        <input type="text" class="form-control" name="codeBars" id="codeBars" placeholder="Código de Barras" required>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Nombre:</span>
-                        <input type="text" maxlength="20" style="text-transform: uppercase;" class="form-control" name="nameProduct" placeholder="Nombre del Producto" required>
+                        <input type="text" maxlength="20" style="text-transform: uppercase;" class="form-control" name="nameProduct" id="nameProduct" placeholder="Nombre del Producto" required>
                     </div>
 
                     <div class="input-group mb-3">
@@ -88,14 +104,14 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Precio Unitario:</span>
-                        <input type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
+                        <input type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" id="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
                     </div>
 
                     <center>
                         <button type="submit" class="btn btn-small btn-success ">
                             <i class="fas fa-save"></i>
                             &nbsp;
-                            Agregar Producto
+                            Guardar
                         </button>
                     </center>
                 </form>
