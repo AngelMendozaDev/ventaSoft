@@ -44,6 +44,23 @@ class funciones extends config
         return $result;
     }
 
+    public function getProv()
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        $query = $conexion->prepare("select * from allProv");
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result;
+    }
+
+
     /*******************
      * Crud Productos
      */
@@ -129,4 +146,54 @@ class funciones extends config
 
         return $response;
     }
+
+    /**************************************
+     * *****CRUD PROVEEDORES
+     ******************/
+
+    public function newProv($object)
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        else if (self::existeProv($object['phone']) == 1) {
+            return "exist";
+        }
+
+        $name = strtoupper($object['nombreP']);
+        $empresa = strtoupper($object['empresa']);
+
+        $query = $conexion->prepare("CALL newProv(?,?,?,?)");
+        $query->bind_param('ssss',$name,$empresa,$object['phone'],$object['user']);
+        $response = $query->execute();
+        
+        $query->close();
+
+        return $response;
+    }
+
+    public function existeProv($phone)
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("SELECT numero FROM proveedores WHERE numero = ?");
+        $query->bind_param('s', $phone);
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        if ($result->num_rows > 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+
 }

@@ -4,7 +4,7 @@ $modelo = new funciones();
 
 $action = $_POST['action'];
 
-if($action = "edit")
+if($action == "edit")
         echo $modelo->updateProd($_POST);
 else
         echo $modelo->newProd($_POST);

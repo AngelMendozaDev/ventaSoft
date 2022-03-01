@@ -1,5 +1,13 @@
 <?php require_once "head.php" ?>
-<link rel="stylesheet" href="css/">
+<link rel="stylesheet" href="lib/datatable/css/dataTables.bootstrap5.min.css">
+
+<?php 
+    require_once "classes/funciones.php";
+    $model = new funciones();
+
+    $result = $model->getProv();
+    $Folio = 1;
+?>
 
 <div class="cont-g">
     <h1>Control general de Productos</h1>
@@ -31,6 +39,25 @@
                 </tr>
             </thead>
             <tbody class="text-center">
+
+                <?php while($data = $result->fetch_assoc()){ ?>
+                <tr>
+                    <td><?php echo $Folio; ?></td>
+                    <td><?php echo $data['empresa']; ?></td>
+                    <td><?php echo $data['nombre_prov']; ?></td>
+                    <td><?php echo $data['numero']; ?></td>
+                    <td>
+                        <button class="btn btn-small btn-warning" data-bs-toggle="modal" data-bs-target="#ProvModal" onclick="getInfo('<?php echo $data['id_prov'] ?>')">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </button>
+
+                        <button class="btn btn-small btn-danger" onclick="delete('<?php echo $data['id_prov'] ?>')">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+                <?php } ?>
+
                 <tr>
                     <td>1</td>
                     <td>Karla Stephanie Chavez Gonzalez</td>
@@ -61,34 +88,36 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" onsubmit="return setProv()">
+                <form method="POST" id="formProv" onsubmit="return setProv()">
 
-                <!--Datos invisibles -->
-                <input type="text" name="user" value="<?php echo $_SESSION['ID']; ?>" hidden>
-                <input type="text" name="action" id="action" hidden>
+                    <!--Datos invisibles -->
+                    <input type="text" name="user" value="<?php echo $_SESSION['ID']; ?>" hidden>
+                    <input type="text" name="action" id="action" hidden>
 
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Nombre:</span>
-                    <input type="text" maxlength="60" class="form-control" name="" placeholder="" required>
-                </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" maxlength="60" class="form-control" style="text-transform: uppercase;" name="nombreP" placeholder="Nombre del representante" required>
+                    </div>
 
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Empresa:</span>
-                    <input type="text" maxlength="50" class="form-control" name="" placeholder="" required>
-                </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Empresa:</span>
+                        <input type="text" maxlength="50" class="form-control" style="text-transform: uppercase;" name="empresa" placeholder="Nombre de la empresa" required>
+                    </div>
 
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Telefono</span>
-                    <input type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="" placeholder="" required>
-                </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Telefono</span>
+                        <input type="number" maxlength="10"
+                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            class="form-control" name="phone" placeholder="Número telefonico a 10 digitos" required>
+                    </div>
 
-                <center>
-                    <button class="btn btn-success">
-                        <i class="fa fa-save" aria-hidden="true"></i>
-                        &nbsp;
-                        Guardar
-                    </button>
-                </center>
+                    <center>
+                        <button class="btn btn-success">
+                            <i class="fa fa-save" aria-hidden="true"></i>
+                            &nbsp;
+                            Guardar
+                        </button>
+                    </center>
 
                 </form>
             </div>
@@ -100,3 +129,6 @@
 </div>
 
 <?php require_once "foot.php" ?>
+<script src="lib/datatable/js/jquery.dataTables.min.js"></script>
+<script src="lib/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="js/prov.js"></script>
