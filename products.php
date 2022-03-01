@@ -12,7 +12,7 @@ $result = $modelo->getProductos();
 
     <div class="alert alert-success" id="descrip" role="alert">
         <span class="btn-close" onclick="closeAlert()"><i class="fas fa-times"></i></span>
-        Dentro de este aparttado podras, dar de alta, modificar o eliminar todo lo referente a
+        Dentro de este apartado podras, dar de alta, modificar o eliminar todo lo referente a
         los productos que maneja en su inventario.
     </div>
 
@@ -55,9 +55,9 @@ $result = $modelo->getProductos();
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </button>
 
-                            <button class="btn btn-small btn-danger">
+                            <!-- <button class="btn btn-small btn-danger">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
+                            </button> -->
 
                         </td>
                     </tr>

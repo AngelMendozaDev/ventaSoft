@@ -40,7 +40,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                     <a href="#">Perfil</a>
                 </li>
                 <li class="nav-option">
-                    <a href="#">Cerrar Sesión</a>
+                    <a href="controllers/close.php">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>
@@ -80,7 +80,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                                     </a>
                                 </li>
                                 <li class="sub-menu-item">
-                                    <a href="#">
+                                    <a href="prov.php">
                                         <i class="fas fa-address-book"></i>
                                         &nbsp; Catalogo Proveedores
                                     </a>

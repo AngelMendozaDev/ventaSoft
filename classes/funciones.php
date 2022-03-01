@@ -119,10 +119,6 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
-        else if (self::existe($object['codeBars']) == 1) {
-            return "exist";
-        }
-
         $name = strtoupper($object['nameProduct']);
 
         $query = $conexion->prepare("CALL updateProd(?,?,?,?,?)");
