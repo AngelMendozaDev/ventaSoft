@@ -20,23 +20,31 @@
     <hr style="color: #fff; font-size:x-large; width: 80%; margin: auto; margin-top: 25px; margin-bottom: 25px;">
 
     <div class="contenedor-table">
-        <table class="table table-hover table-responsive" id="myTabla">
+        <table class="table table-hover table-responsive table-light" id="myTabla">
             <thead class="table-primary text-center">
                 <tr>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
+                    <th>FOLIO</th>
+                    <th>NOMBRE</th>
+                    <th>EMPRESA</th>
+                    <th>NUMERO</th>
+                    <th>ACCIONES</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 <tr>
                     <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
+                    <td>Karla Stephanie Chavez Gonzalez</td>
+                    <td>Arquitectura S.A. de C.V.</td>
+                    <td>5565127465</td>
+                    <td>
+                        <button class="btn btn-small btn-warning">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </button>
+
+                        <button class="btn btn-small btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -58,6 +66,29 @@
                 <!--Datos invisibles -->
                 <input type="text" name="user" value="<?php echo $_SESSION['ID']; ?>" hidden>
                 <input type="text" name="action" id="action" hidden>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Nombre:</span>
+                    <input type="text" maxlength="60" class="form-control" name="" placeholder="" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Empresa:</span>
+                    <input type="text" maxlength="50" class="form-control" name="" placeholder="" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Telefono</span>
+                    <input type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="" placeholder="" required>
+                </div>
+
+                <center>
+                    <button class="btn btn-success">
+                        <i class="fa fa-save" aria-hidden="true"></i>
+                        &nbsp;
+                        Guardar
+                    </button>
+                </center>
 
                 </form>
             </div>
