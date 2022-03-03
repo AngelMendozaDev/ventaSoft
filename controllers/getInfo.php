@@ -10,6 +10,9 @@
      case "gp" :
         echo $model->getProduct($_POST['codeBar']);
         break;
+    case "gprov":
+        echo $model->getProv($_POST['prov']);
+    break;
  }
 
 

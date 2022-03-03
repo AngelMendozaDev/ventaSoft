@@ -5,7 +5,7 @@
     require_once "classes/funciones.php";
     $model = new funciones();
 
-    $result = $model->getProv();
+    $result = $model->getProvs();
     $Folio = 1;
 ?>
 
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProvModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProvModal" onclick="$('#formProv')[0].reset()">
         <i class="fa fa-plus-circle" aria-hidden="true"></i>
         &nbsp;
         Nuevo Proveedor
@@ -92,23 +92,24 @@
 
                     <!--Datos invisibles -->
                     <input type="text" name="user" value="<?php echo $_SESSION['ID']; ?>" hidden>
-                    <input type="text" name="action" id="action" hidden>
+                    <input type="text" name="action" id="action" hidden >
+                    <input type="text" name="idProv" id="idProv">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Nombre:</span>
-                        <input type="text" maxlength="60" class="form-control" style="text-transform: uppercase;" name="nombreP" placeholder="Nombre del representante" required>
+                        <input type="text" maxlength="60" class="form-control" style="text-transform: uppercase;" name="nombreP" id="nameP" placeholder="Nombre del representante" required>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Empresa:</span>
-                        <input type="text" maxlength="50" class="form-control" style="text-transform: uppercase;" name="empresa" placeholder="Nombre de la empresa" required>
+                        <input type="text" maxlength="50" class="form-control" style="text-transform: uppercase;" name="empresa" id="empresa" placeholder="Nombre de la empresa" required>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Telefono</span>
                         <input type="number" maxlength="10"
                             oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            class="form-control" name="phone" placeholder="Número telefonico a 10 digitos" required>
+                            class="form-control" name="phone" id="phone" placeholder="Número telefonico a 10 digitos" required>
                     </div>
 
                     <center>

@@ -4,10 +4,10 @@
 
     $action = $_POST['action'];
 
-    if($action != ""){
-        echo "El If";
+    if($action != "update"){
+        echo( $model->newProv($_POST));
     }
     else{
-        echo $model->newProv($_POST);
+        echo $model->updateProv($_POST);
     }
 ?>

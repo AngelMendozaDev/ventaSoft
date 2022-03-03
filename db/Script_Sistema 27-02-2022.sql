@@ -36,7 +36,7 @@ CREATE TABLE persona(
 );
 
 CREATE TABLE proveedores(
-	id_prov int not null,
+	id_prov int auto_increment not null,
     nombre_prov varchar(60) not null,
     empresa varchar(50) not null,
     numero varchar(10) not null,

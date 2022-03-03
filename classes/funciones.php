@@ -44,7 +44,7 @@ class funciones extends config
         return $result;
     }
 
-    public function getProv()
+    public function getProvs()
     {
         $conexion = config::conexion();
 
@@ -153,17 +153,16 @@ class funciones extends config
 
     public function newProv($object)
     {
+        $name = strtoupper($object['nombreP']);
+        $empresa = strtoupper($object['empresa']);
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
 
-        else if (self::existeProv($object['phone']) == 1) {
+        else if (self::existeProv($object['phone'], $empresa) == 1) {
             return "exist";
         }
-
-        $name = strtoupper($object['nombreP']);
-        $empresa = strtoupper($object['empresa']);
 
         $query = $conexion->prepare("CALL newProv(?,?,?,?)");
         $query->bind_param('ssss',$name,$empresa,$object['phone'],$object['user']);
@@ -174,15 +173,15 @@ class funciones extends config
         return $response;
     }
 
-    public function existeProv($phone)
+    public function existeProv($phone,$empresa)
     {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
 
-        $query = $conexion->prepare("SELECT numero FROM proveedores WHERE numero = ?");
-        $query->bind_param('s', $phone);
+        $query = $conexion->prepare("SELECT numero FROM proveedores WHERE numero = ? OR empresa = ?");
+        $query->bind_param('ss', $phone, $empresa);
         $query->execute();
 
         $result = $query->get_result();
@@ -195,5 +194,40 @@ class funciones extends config
         return 0;
     }
 
+    public function getProv($prov)
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        $query = $conexion->prepare("SELECT * FROM proveedores WHERE id_prov = ?");
+        $query->bind_param('s',$prov);
+        $query->execute();
+
+        $result = $query->get_result()->fetch_assoc();
+
+        $query->close();
+
+        return json_encode($result);
+    }
+
+    public function updateProv($object)
+    {
+        $name = strtoupper($object['nombreP']);
+        $empresa = strtoupper($object['empresa']);
+
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("CALL updateProv(?,?,?,?,?)");
+        $query->bind_param('sssss', $object['idProv'], $name, $empresa, $object['phone'], $object['user']);
+        $response = $query->execute();
+
+        $query->close();
+
+        return $response;
+    }
 
 }
