@@ -13,7 +13,7 @@
     <h1>Control general de Productos</h1>
 
     <div class="alert alert-success" id="descrip" role="alert">
-        <span class="btn-close" onclick="closeAlert()"><i class="fas fa-times"></i></span>
+        <span class="btn-close" onclick="closeAlert()" id="descrip"><i class="fas fa-times"></i></span>
         Dentro de este apartado podras, administrar los proveedores de
         su negocio
     </div>
@@ -28,7 +28,7 @@
     <hr style="color: #fff; font-size:x-large; width: 80%; margin: auto; margin-top: 25px; margin-bottom: 25px;">
 
     <div class="contenedor-table">
-        <table class="table table-hover table-responsive table-light" id="myTabla">
+        <table class="table table-hover table-responsive table-light" id="tableProv">
             <thead class="table-primary text-center">
                 <tr>
                     <th>FOLIO</th>
@@ -51,28 +51,14 @@
                             <i class="fa fa-edit" aria-hidden="true"></i>
                         </button>
 
-                        <button class="btn btn-small btn-danger" onclick="delete('<?php echo $data['id_prov'] ?>')">
+                        <button class="btn btn-small btn-danger" onclick="deleteProv('<?php echo $data['id_prov'].'*'.$data['numero'].'*'.$_SESSION['ID'] ?>')">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </td>
                 </tr>
-                <?php } ?>
-
-                <tr>
-                    <td>1</td>
-                    <td>Karla Stephanie Chavez Gonzalez</td>
-                    <td>Arquitectura S.A. de C.V.</td>
-                    <td>5565127465</td>
-                    <td>
-                        <button class="btn btn-small btn-warning">
-                            <i class="fa fa-edit" aria-hidden="true"></i>
-                        </button>
-
-                        <button class="btn btn-small btn-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
+                <?php 
+                $Folio++;
+            } ?>
             </tbody>
         </table>
     </div>
@@ -93,7 +79,7 @@
                     <!--Datos invisibles -->
                     <input type="text" name="user" value="<?php echo $_SESSION['ID']; ?>" hidden>
                     <input type="text" name="action" id="action" hidden >
-                    <input type="text" name="idProv" id="idProv">
+                    <input type="text" name="idProv" id="idProv" hidden>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Nombre:</span>

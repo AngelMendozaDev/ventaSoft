@@ -45,7 +45,7 @@ CREATE TABLE proveedores(
 
 CREATE TABLE producto(
 	codigo varchar(15) not null,
-    nombre varchar(15) not null,
+    nombre varchar(20) not null,
     unidad varchar(5) not null,
     precio decimal(7,2) not null,
     primary key(codigo)
@@ -88,6 +88,7 @@ CREATE TABLE notas(
 	id_nota int auto_increment not null,
     usuario int not null,
     n_nota varchar(20) not null,
+    prov varchar(50) not null,
     fecha datetime default now(),
     primary key(id_nota),
     foreign key(usuario) references usuarios(id_us)

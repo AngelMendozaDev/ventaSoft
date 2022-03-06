@@ -160,7 +160,7 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
-        else if (self::existeProv($object['phone'], $empresa) == 1) {
+        else if (self::existeProv($object['phone']) == 1) {
             return "exist";
         }
 
@@ -173,15 +173,15 @@ class funciones extends config
         return $response;
     }
 
-    public function existeProv($phone,$empresa)
+    public function existeProv($phone)
     {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
 
-        $query = $conexion->prepare("SELECT numero FROM proveedores WHERE numero = ? OR empresa = ?");
-        $query->bind_param('ss', $phone, $empresa);
+        $query = $conexion->prepare("SELECT numero FROM proveedores WHERE numero = ?");
+        $query->bind_param('s', $phone);
         $query->execute();
 
         $result = $query->get_result();
@@ -228,6 +228,23 @@ class funciones extends config
         $query->close();
 
         return $response;
+    }
+
+    public function deleteProv($object){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        
+        $query = $conexion->prepare('Call deleteProv(?,?,?)');
+        $query->bind_param('sss',$object['prov'],$object['phone'],$object['user']);
+        $result = $query->execute();
+
+        $query->close();
+
+        return $result;
+
+
     }
 
 }

@@ -8,7 +8,7 @@ use ventaSoft;
 /*****Alta de Producto***/
 DELIMITER $$
 create procedure newProd(
-	in codeBars varchar(15),
+	in codeBars varchar(20),
     in nombre varchar(20),
     in unidad varchar(5),
     in precio decimal(7,2),
@@ -75,6 +75,19 @@ create procedure updateProv(
 	begin
 		update proveedores set nombre_prov = nombreU, empresa = empresaU, numero = phoneU where id_prov = id_provU;
         insert into bitacora(usuario, movimiento,coment) values (id_user,"MOD. DE PROVEDOR",id_provU);
+    end
+    $$
+DELIMITER ;
+/********Modificacion de Producto*****************************/
+DELIMITER $$
+create procedure deleteProv(
+	in id_provD int,
+    in phone varchar(10),
+    in id_user int
+    )
+	begin
+		delete from proveedores where id_prov  = id_provD;
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"ELIMINO PROVEDOR",phone);
     end
     $$
 DELIMITER ;

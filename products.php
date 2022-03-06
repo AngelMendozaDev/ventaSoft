@@ -11,13 +11,13 @@ $result = $modelo->getProductos();
     <h1>Control general de Productos</h1>
 
     <div class="alert alert-success" id="descrip" role="alert">
-        <span class="btn-close" onclick="closeAlert()"><i class="fas fa-times"></i></span>
+        <span class="btn-close" onclick="closeAlert()" style="cursor: pointer;"><i class="fas fa-times"></i></span>
         Dentro de este apartado podras, dar de alta, modificar o eliminar todo lo referente a
         los productos que maneja en su inventario.
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="$('#formAddProd')[0].reset();">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="$('#formAddProd')[0].reset(); $('#codeBars').prop('disabled', false);">
         <i class="fa fa-plus-circle" aria-hidden="true"></i>
         &nbsp;
         Alta de Producto
@@ -73,14 +73,14 @@ $result = $modelo->getProductos();
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Alta de Producto</h5>
+                <h5 class="modal-title" id="addProductModalLabel">Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" onsubmit="return addProd() " id="formAddProd">
 
                     <input type="text" name="user" value="<?php echo $_SESSION['ID'] ?>" readonly hidden>
-                    <input type="text" id="action" name="action" readonly>
+                    <input type="text" id="action" name="action" readonly hidden>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-barcode"></i></span>

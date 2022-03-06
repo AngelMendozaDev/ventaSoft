@@ -4,10 +4,15 @@
 
     $action = $_POST['action'];
 
-    if($action != "update"){
+    
+    if($action == "delProv"){
+        echo $model->deleteProv($_POST);
+    }
+    else if($action == ""){
         echo( $model->newProv($_POST));
     }
     else{
         echo $model->updateProv($_POST);
     }
+   //print_r($_POST);
 ?>

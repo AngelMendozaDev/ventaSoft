@@ -11,7 +11,7 @@
     </p>
 
     <center>
-        <a class="myButton">
+        <a class="myButton" href="https://lumega-mx.com/" target="_blank">
             Ver Mas <i class="fa fa-eye" aria-hidden="true"></i>
         </a>
     </center>

@@ -46,6 +46,7 @@ function getInfo(codeBar) {
                 default:
                     data = JSON.parse(res);
                     $('#codeBars').val(data.codigo);
+                    $('#codeBars').attr('readonly', true);
                     $('#nameProduct').val(data.nombre);
                     $('#unidadV').val(data.unidad);
                     $('#price').val(data.precio);
@@ -53,6 +54,10 @@ function getInfo(codeBar) {
             }
         }
     });
+}
+
+function closeAlert(){
+    $('#descrip').remove();
 }
 
 $(function() {
