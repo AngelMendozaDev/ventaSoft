@@ -243,8 +243,49 @@ class funciones extends config
         $query->close();
 
         return $result;
-
-
     }
+
+
+    /******************************+
+     * CRUD NOTAS
+     ***********************************************************************/
+
+     public function getProvNames(){
+        $conexion = config::conexion();
+
+         if($conexion == false)
+         return 3;
+
+         $query = $conexion->prepare("select * from getAllNameProv");
+         $query->execute();
+
+         $result = $query->get_result();
+
+         $query->close();
+
+         while($data = $result->fetch_assoc()){
+             $json[] = array(
+                 "name" => $data['empresa']
+             );
+         }
+
+         return json_encode($json);
+     }
+
+     public function getNotas(){
+         $conexion = config::conexion();
+
+         if($conexion == false)
+         return 3;
+
+         $query = $conexion->prepare("select * from getAllNotes");
+         $query->execute();
+
+         $result = $query->get_result();
+
+         $query->close();
+
+         return $result;
+     }
 
 }

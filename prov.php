@@ -1,5 +1,4 @@
 <?php require_once "head.php" ?>
-<link rel="stylesheet" href="lib/datatable/css/dataTables.bootstrap5.min.css">
 
 <?php 
     require_once "classes/funciones.php";
@@ -116,6 +115,4 @@
 </div>
 
 <?php require_once "foot.php" ?>
-<script src="lib/datatable/js/jquery.dataTables.min.js"></script>
-<script src="lib/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script src="js/prov.js"></script>

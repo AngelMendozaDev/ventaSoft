@@ -1,0 +1,13 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.nota-controllers {
+    display: flex;
+}
+
+.nota-controllers .input-group {
+    margin: 10px;
+}

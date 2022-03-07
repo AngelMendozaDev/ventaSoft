@@ -232,4 +232,7 @@ body::before {
         width: 95%;
         margin-top: 120px;
     }
+    .contenedor-table {
+        overflow-x: scroll;
+    }
 }

@@ -1,5 +1,4 @@
 <?php require_once "head.php"; ?>
-<link rel="stylesheet" href="lib/datatable/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="css/products.css">
 <?php
 require_once "classes/funciones.php";
@@ -95,7 +94,7 @@ $result = $modelo->getProductos();
                     <div class="input-group mb-3">
                         <span class="input-group-text">Unidad de Venta</span>
                         <select class="form-select" name="unidad" id="unidadV" required>
-                            <option value="0" selected="true" disabled>Selecciona una opcion</option>
+                            <option value="" selected="true" disabled>Selecciona una opcion</option>
                             <option value="KG">KILOGRAMO</option>
                             <option value="L">LITRO</option>
                             <option value="PZ">PIEZA</option>
@@ -104,7 +103,7 @@ $result = $modelo->getProductos();
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Precio Unitario:</span>
-                        <input type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" id="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
+                        <input step="any" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" id="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
                     </div>
 
                     <center>
@@ -124,6 +123,4 @@ $result = $modelo->getProductos();
 </div>
 
 <?php require_once "foot.php"; ?>
-<script src="lib/datatable/js/jquery.dataTables.min.js"></script>
-<script src="lib/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script src="js/products.js"></script>

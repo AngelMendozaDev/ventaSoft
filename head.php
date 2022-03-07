@@ -16,6 +16,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
     <link rel="icon" href="media/icons/Logo.png">
     <link rel="stylesheet" href="lib/bootstrap-5/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="lib/datatable/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="css/menus.css">
 </head>
 
@@ -101,7 +102,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                         <div class="accordion-body">
                             <ul class="sub-menu">
                                 <li class="sub-menu-item">
-                                    <a href="">
+                                    <a href="inputs.php">
                                         <i class="fas fa-truck-loading"></i>
                                         &nbsp;
                                         Entradas

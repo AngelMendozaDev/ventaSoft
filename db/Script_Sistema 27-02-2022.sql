@@ -99,7 +99,6 @@ CREATE TABLE prod_nota(
     nota int not null,
     producto varchar(15) not null,
     cantidad decimal(7,2) not null,
-    unidad varchar(5) not null,
     primary key(folio),
     foreign key(nota) references notas(id_nota),
     foreign key(producto) references producto(codigo)

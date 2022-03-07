@@ -13,6 +13,9 @@
     case "gprov":
         echo $model->getProv($_POST['prov']);
     break;
+    case "gallprov":
+        echo $model->getProvNames();
+        break;
  }
 
 

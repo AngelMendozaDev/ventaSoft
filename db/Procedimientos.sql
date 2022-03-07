@@ -91,3 +91,15 @@ create procedure deleteProv(
     end
     $$
 DELIMITER ;
+
+
+/***************************
+* Notas
+***************************************************/
+create view getAllNotes
+as 
+select * from notas;
+
+create view getAllNameProv
+as 
+select empresa from proveedores group by empresa;
