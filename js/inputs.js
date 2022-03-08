@@ -19,4 +19,20 @@ $(function() {
             });
         }
     });
+
+
+    $('#codeBar').keypress(function(event) {
+        if (event.which == 13) {
+            code = $('#codeBar').val();
+
+            if (code != "") {
+                $.ajax({
+                    url: "controllers/getInfo.php",
+                    type: 'POST',
+                    data: { code }
+                });
+            }
+        }
+    });
+
 })

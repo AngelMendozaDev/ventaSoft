@@ -16,6 +16,9 @@
     case "gallprov":
         echo $model->getProvNames();
         break;
+    case "getProdN":
+        echo $model->getProduct($_POST['codeBar']);
+        break;
  }
 
 
