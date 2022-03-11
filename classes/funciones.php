@@ -1,4 +1,7 @@
 <?php
+
+use LDAP\Result;
+
 require_once "config.php";
 
 class funciones extends config
@@ -165,9 +168,9 @@ class funciones extends config
         }
 
         $query = $conexion->prepare("CALL newProv(?,?,?,?)");
-        $query->bind_param('ssss',$name,$empresa,$object['phone'],$object['user']);
+        $query->bind_param('ssss', $name, $empresa, $object['phone'], $object['user']);
         $response = $query->execute();
-        
+
         $query->close();
 
         return $response;
@@ -201,7 +204,7 @@ class funciones extends config
         if ($conexion == false)
             return 3;
         $query = $conexion->prepare("SELECT * FROM proveedores WHERE id_prov = ?");
-        $query->bind_param('s',$prov);
+        $query->bind_param('s', $prov);
         $query->execute();
 
         $result = $query->get_result()->fetch_assoc();
@@ -230,14 +233,15 @@ class funciones extends config
         return $response;
     }
 
-    public function deleteProv($object){
+    public function deleteProv($object)
+    {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
-        
+
         $query = $conexion->prepare('Call deleteProv(?,?,?)');
-        $query->bind_param('sss',$object['prov'],$object['phone'],$object['user']);
+        $query->bind_param('sss', $object['prov'], $object['phone'], $object['user']);
         $result = $query->execute();
 
         $query->close();
@@ -250,42 +254,103 @@ class funciones extends config
      * CRUD NOTAS
      ***********************************************************************/
 
-     public function getProvNames(){
+    public function getProvNames()
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("select * from getAllNameProv");
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        while ($data = $result->fetch_assoc()) {
+            $json[] = array(
+                "name" => $data['empresa']
+            );
+        }
+
+        return json_encode($json);
+    }
+
+    public function getNotas()
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("select * from getAllNotes");
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result;
+    }
+
+    public function addNota($object)
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        else if (self::cloneNote($object['n_nota']) == true)
+            return "exist";
+
+        $query = $conexion->prepare('call newNote(?,?,?)');
+        $query->bind_param('sss', $object['user'], $object['n_nota'], $object['prov']);
+        $result = $query->execute();
+        $id = self::getLastId()['max(id_nota)'];
+        $query->close();
+
+        if ($result == 1) {
+            $query= $conexion->prepare("call newNoteProd(?,?,?,?)");
+            for($i = 0; $i < count($object['codeNote']); $i++){
+                 $query->bind_param('ssss',$id, $object['codeNote'][$i], $object['cantProd'][$i], $object['user']);
+                 if($query->execute() != 1)
+                    return "err";
+            }
+            return "1";
+        }
+    }
+
+    public function cloneNote($note)
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("SELECT id_nota FROM notas WHERE n_nota = ?");
+        $query->bind_param('s', $note);
+        $query->execute();
+        $result = $query->get_result();
+
+        $query->close();
+
+        if ($result->num_rows > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getLastId(){
         $conexion = config::conexion();
 
          if($conexion == false)
          return 3;
 
-         $query = $conexion->prepare("select * from getAllNameProv");
+         $query = $conexion->prepare("select * from lastNote");
          $query->execute();
-
-         $result = $query->get_result();
-
-         $query->close();
-
-         while($data = $result->fetch_assoc()){
-             $json[] = array(
-                 "name" => $data['empresa']
-             );
-         }
-
-         return json_encode($json);
-     }
-
-     public function getNotas(){
-         $conexion = config::conexion();
-
-         if($conexion == false)
-         return 3;
-
-         $query = $conexion->prepare("select * from getAllNotes");
-         $query->execute();
-
-         $result = $query->get_result();
-
-         $query->close();
-
+         $result = $query->get_result()->fetch_assoc();
+        $query->close();
          return $result;
-     }
+    }
 
 }

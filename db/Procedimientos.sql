@@ -16,6 +16,7 @@ create procedure newProd(
     )
 	begin
 		insert into producto (codigo, nombre, unidad, precio) values (codeBars,nombre, unidad, precio);
+        insert into almacen (producto, stock) values(codeBars,'0');
         insert into bitacora(usuario, movimiento,coment) values (id_user,"ALTA DE PRODUCTO",codeBars);
     end
     $$
@@ -63,7 +64,7 @@ create procedure newProv(
     $$
 DELIMITER ;
 
-/********Modificacion de Producto*****************************/
+/********Modificacion de Provedor*****************************/
 DELIMITER $$
 create procedure updateProv(
 	in id_provU int,
@@ -103,3 +104,56 @@ select * from notas;
 create view getAllNameProv
 as 
 select empresa from proveedores group by empresa;
+
+use ventaSoft;
+
+/*****Alta de Nota***/
+DELIMITER $$
+create procedure newNote(
+    in id_user int,
+    in nota varchar(20),
+    in proveedor varchar(50)
+    )
+	begin
+		insert into notas(usuario, n_nota,prov) values(id_user, nota, proveedor);
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"ALTA DE NOTA",nota);
+    end
+    $$
+DELIMITER ;
+
+/********Modificacion de Provedor*****************************/
+DELIMITER $$
+create procedure deleteNote(
+    in id_user int,
+    in nota varchar(20),
+    in idnota int
+    )
+	begin
+		delete from notas where id_nota = idnota; 
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"DELETE NOTE",nota);
+    end
+    $$
+DELIMITER ;
+
+/*****Alta de PROD-NOTA***/
+DELIMITER $$
+create procedure newNoteProd(
+    in n_nota int,
+    in prod varchar(15),
+    in cant decimal(7,2),
+    in id_user int
+    )
+	begin
+		declare act decimal (7,2) default 0;
+        declare listo decimal(7,2) default 0;
+		insert into prod_nota(nota, producto, cantidad) values(n_nota, prod, cant);
+        set act = (select stock from almacen where producto = prod);
+        set listo = act + cant;
+        update almacen set stock = listo where producto = prod; 
+        insert into bitacora(usuario, movimiento,coment) values (id_user,n_nota,prod);
+        
+    end
+    $$
+DELIMITER ;
+
+create view lastNote as select max(id_nota) from notas;

@@ -11,3 +11,37 @@
 .nota-controllers .input-group {
     margin: 10px;
 }
+
+.error {
+    display: none;
+    color: red;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.visible {
+    display: block;
+}
+
+.cont-entrada {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+#lienzo td:last-child {
+    text-align: center;
+}
+
+@media(max-width:800px) {
+    .nota-controllers {
+        display: block;
+        padding: 0px;
+        text-align: center;
+        width: 100%;
+    }
+    #addProd {
+        width: 90%;
+        margin: auto;
+    }
+}
