@@ -353,4 +353,63 @@ class funciones extends config
          return $result;
     }
 
+    public function getDetail($nota){
+        $conexion = config::conexion();
+
+         if($conexion == false)
+         return 3;
+
+        $query = $conexion->prepare("SELECT nn.n_nota, nn.prov, p.codigo, p.nombre, n.cantidad, p.unidad, p.precio FROM prod_nota AS n INNER JOIN producto AS p ON p.codigo = n.producto INNER JOIN notas AS nn ON nn.id_nota = n.nota WHERE n.nota = ?");
+        $query->bind_param('s',$nota);
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        while($data = $result->fetch_assoc()){
+            $json[] = array(
+                "code" => $data['codigo'],
+                "name" => $data['nombre'],
+                "cant" => $data['cantidad']."-".$data['unidad'],
+                "prov" => $data['prov'],
+                "note" => $data['n_nota']
+            );
+        }
+
+        return $json;
+    }
+
+    public function getAlmacen(){
+        $conexion = config::conexion();
+
+         if($conexion == false)
+         return 3;
+
+         $query = $conexion->prepare("SELECT * FROM getAlmacen");
+         $query->execute();
+
+         $result = $query->get_result();
+
+         $query->close();
+
+         return $result;
+    }
+
+    public function getFaltantes(){
+        $conexion = config::conexion();
+
+         if($conexion == false)
+         return 3;
+
+         $query = $conexion->prepare("SELECT * FROM getFaltantes");
+         $query->execute();
+
+         $result = $query->get_result();
+
+         $query->close();
+
+         return $result;
+    }
+
 }

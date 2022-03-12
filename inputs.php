@@ -16,7 +16,7 @@ $result = $model->getNotas();
     <div class="alert alert-success" id="descrip" role="alert">
         <span class="btn-close" onclick="closeAlert()" style="cursor: pointer;"><i class="fas fa-times"></i></span>
         Ingresa el producto recibido, si tienes productos nuevos, primero debes hacer el <a href="products.php">alta de
-            producto</a>
+            producto</a>, recuerda que una vez cargada la nota no podra ser editada.
     </div>
 
     <!-- Button trigger modal -->
@@ -45,16 +45,16 @@ $result = $model->getNotas();
                         <td><?php echo $key['prov'] ?></td>
                         <td><?php echo $key['fecha'] ?></td>
                         <td>
-                            <button class="btn btn-small btn-primary btn-popover">
+                            <button class="btn btn-small btn-primary btn-popover" data-bs-toggle="modal" data-bs-target="#modalDetails" onclick="getDetalle('<?php echo $key['id_nota'] ?>')">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                 <span class="msg-pop">
                                     Ver detalle
                                 </span>
                             </button>
 
-                            <button class="btn btn-small btn-warning" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="getInfo('<?php echo $key['id_nota'] ?>')">
-                                <i class="fa fa-edit" aria-hidden="true"></i>
-                            </button>
+                            <!-- <button class="btn btn-small btn-danger" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="deleteNote('<?php echo $key['id_nota'] ?>')">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button> -->
 
                             <!-- <button class="btn btn-small btn-danger">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
@@ -71,7 +71,7 @@ $result = $model->getNotas();
     <!-- Fin de Contenedor -->
 </div>
 
-<!-- Modal -->
+<!-- Modal Add Note -->
 <div class="modal fade" id="ModalNote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -161,6 +161,36 @@ $result = $model->getNotas();
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal Details-->
+<div class="modal fade" id="modalDetails" tabindex="-1" aria-labelledby="modalDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDetailsLabel">Dtalle de nota: <span id="n_note"></span> </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="etiqueta" id="name_prov"></label>
+        <div class="cont-table">
+            <table class="table table-hover table-responsive">
+                    <thead class="tabletable-primary">
+                        <tr class="text-center">
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lienzo-detail" class="text-center"> </tbody>
+            </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?php require_once "foot.php" ?>

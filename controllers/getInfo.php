@@ -19,6 +19,9 @@
     case "getProdN":
         echo $model->getProduct($_POST['codeBar']);
         break;
+    case "getDetailNote":
+        echo json_encode($model->getDetail($_POST['note']));
+        break;
  }
 
 

@@ -1,7 +1,7 @@
 <?php
     require_once "../classes/funciones.php";
     $model = new funciones();
-    print_r($_POST);
+    //print_r($_POST);
 
     $action = $_POST['action'];
 

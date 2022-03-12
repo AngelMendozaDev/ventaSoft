@@ -109,17 +109,17 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                                     </a>
                                 </li>
                                 <li class="sub-menu-item">
-                                    <a href="">
-                                        <i class="fas fa-exclamation-circle"></i>
+                                    <a href="almacen.php">
+                                        <i class="fas fa-boxes"></i>
                                         &nbsp;
-                                        Faltantes
+                                        Almacen
                                     </a>
                                 </li>
                                 <li class="sub-menu-item">
-                                    <a href="">
-                                        <i class="fas fa-hand-holding-usd"></i>
+                                    <a href="faltantes.php">
+                                    <i class="fas fa-exclamation-circle"></i>
                                         &nbsp;
-                                        Futuras Utilidades
+                                        Faltantes
                                     </a>
                                 </li>
                             </ul>

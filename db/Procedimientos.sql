@@ -97,6 +97,9 @@ DELIMITER ;
 /***************************
 * Notas
 ***************************************************/
+
+use ventaSoft;
+
 create view getAllNotes
 as 
 select * from notas;
@@ -104,8 +107,6 @@ select * from notas;
 create view getAllNameProv
 as 
 select empresa from proveedores group by empresa;
-
-use ventaSoft;
 
 /*****Alta de Nota***/
 DELIMITER $$
@@ -157,3 +158,10 @@ create procedure newNoteProd(
 DELIMITER ;
 
 create view lastNote as select max(id_nota) from notas;
+
+create view getAlmacen as SELECT p.codigo, p.nombre, a.stock, p.unidad, p.precio FROM almacen AS a INNER JOIN producto AS p ON p.codigo = a.producto;
+
+create view getFaltantes as SELECT p.codigo, p.nombre, a.stock, p.unidad, p.precio FROM almacen AS a INNER JOIN producto AS p ON p.codigo = a.producto WHERE  a.stock <= 4;
+
+select * from getAlmacen;
+select * from getFaltantes;

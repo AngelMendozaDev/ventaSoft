@@ -5,13 +5,33 @@ function closeAlert() {
     $('#descrip').remove();
 }
 
-
 function deleteProd(id) {
     console.log("Eliminando el Prod " + id)
     $('#prod' + id).remove();
     auxCont--;
 }
 
+function getDetalle(id) {
+    $.ajax({
+        url: "controllers/getInfo.php",
+        type: "POST",
+        data: { note: id, Tipo: "getDetailNote" },
+        success: function(response) {
+            //console.log(response);
+            data = JSON.parse(response);
+            $('#lienzo-detail').empty();
+            $.each(data, function(item, key) {
+                $('#n_note').html(key.note);
+                $('#name_prov').html(key.prov);
+                $('#lienzo-detail').append("<tr>" +
+                    "<td>" + key.code + "</td>" +
+                    "<td>" + key.name + "</td>" +
+                    "<td>" + key.cant + "</td>" +
+                    "</tr>")
+            });
+        }
+    });
+}
 
 $(function() {
     $('#tableInput').dataTable();
@@ -125,7 +145,17 @@ $(function() {
                 type: 'POST',
                 data: $('#form-nota').serialize(),
                 success: function(response) {
-                    console.log(response);
+                    result = response.trim();
+                    console.log(result);
+                    if (result == 1) {
+                        swal("Nota Guardada Con éxito", "LUMEGA-MX [2022]", "success")
+                            .then((value) => {
+                                location.reload();
+                            });
+                    } else if (result == 3)
+                        swal("Se perdio la conexion con el Servidor", "Intenta mas tarde o llama a soporte tecnico", "info");
+                    else if (result == "exist")
+                        swal("La nota ya existe o ya fue cargada, revisala por favor, si es complemento colocale -B al final");
                 }
             });
         } else {
@@ -136,5 +166,4 @@ $(function() {
             })
         }
     });
-
 });
