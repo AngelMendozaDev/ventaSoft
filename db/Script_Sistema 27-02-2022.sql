@@ -144,7 +144,7 @@ CREATE TABLE bitacora(
     fecha_mov datetime default now(),
     usuario int not null,
     movimiento varchar(25) not null,
-    coment varchar(15) not null,
+    coment varchar(20) not null,
     primary key(folio),
     foreign key(usuario) references usuarios(id_us)
 );

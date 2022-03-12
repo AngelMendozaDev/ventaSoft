@@ -163,5 +163,4 @@ create view getAlmacen as SELECT p.codigo, p.nombre, a.stock, p.unidad, p.precio
 
 create view getFaltantes as SELECT p.codigo, p.nombre, a.stock, p.unidad, p.precio FROM almacen AS a INNER JOIN producto AS p ON p.codigo = a.producto WHERE  a.stock <= 4;
 
-select * from getAlmacen;
-select * from getFaltantes;
+create view getAllUsers as select u.id_us, p.nombre, p.app, p.apm from persona as p inner join usuarios as u on u.id_us = p.id_p;

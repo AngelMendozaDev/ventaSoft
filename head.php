@@ -38,7 +38,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                     <a href="main.php">Home</a>
                 </li>
                 <li class="nav-option">
-                    <a href="#">Perfil</a>
+                    <a href="mainpv.php">Ventas</a>
                 </li>
                 <li class="nav-option">
                     <a href="controllers/close.php">Cerrar Sesión</a>
@@ -148,6 +148,30 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                         </div>
                     </div>
                 </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFor">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFor" aria-expanded="false" aria-controls="collapseFor">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            &nbsp;
+                            Personal
+                        </button>
+                    </h2>
+                    <div id="collapseFor" class="accordion-collapse collapse" aria-labelledby="headingFor" data-bs-parent="#accordeon">
+                        <div class="accordion-body">
+                            <ul class="sub-menu">
+                                <li class="sub-menu-item">
+                                    <a href="personal.php">
+                                        <i class="fas fa-id-card"></i>
+                                        &nbsp;
+                                        Administrar Personal
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- Fin accordeon -->
 
