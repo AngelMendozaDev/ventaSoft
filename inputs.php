@@ -113,6 +113,12 @@ $result = $model->getNotas();
                             <span class="input-group-text">Producto:</span>
                             <input type="text" class="form-control" id="Name" readonly>
                         </div>
+                    </div>
+                    <div class="nota-controllers">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Costo:</span>
+                            <input step="any" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" id="Cost" disabled>
+                        </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">Cantidad:</span>
@@ -134,6 +140,7 @@ $result = $model->getNotas();
                                     <th>Codigo</th>
                                     <th>Producto</th>
                                     <th style="width: 50px;">Cantidad</th>
+                                    <th style="width: 80px;">Costo</th>
                                     <th>Cancel</th>
                                 </tr>
                             </thead>
@@ -165,32 +172,32 @@ $result = $model->getNotas();
 
 <!-- Modal Details-->
 <div class="modal fade" id="modalDetails" tabindex="-1" aria-labelledby="modalDetailsLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalDetailsLabel">Dtalle de nota: <span id="n_note"></span> </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <label class="etiqueta" id="name_prov"></label>
-        <div class="cont-table">
-            <table class="table table-hover table-responsive">
-                    <thead class="tabletable-primary">
-                        <tr class="text-center">
-                            <th>Código</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lienzo-detail" class="text-center"> </tbody>
-            </table>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDetailsLabel">Dtalle de nota: <span id="n_note"></span> </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label class="etiqueta" id="name_prov"></label>
+                <div class="cont-table">
+                    <table class="table table-hover table-responsive">
+                        <thead class="tabletable-primary">
+                            <tr class="text-center">
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lienzo-detail" class="text-center"> </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <?php require_once "foot.php" ?>

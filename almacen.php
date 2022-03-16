@@ -27,12 +27,12 @@
             </thead>
             <tbody class="text-center table-bod">
                 <?php while($datos = $data->fetch_assoc()){
-                    if($datos['stock']> 0){
+                    if($datos['cantidad']> 0){
                     ?>
                 <tr>
                     <td><?php echo $datos['codigo']; ?></td>
                     <td><?php echo $datos['nombre']; ?></td>
-                    <td><?php echo $datos['stock'] . " " .$datos['unidad']; ?></td>
+                    <td><?php echo $datos['cantidad'] . " " .$datos['unidad']; ?></td>
                     <td>$<?php echo $datos['precio']; ?></td>
                 </tr>
                 <?php }
@@ -40,7 +40,7 @@
                 <tr class="falta">
                     <td><?php echo $datos['codigo']; ?></td>
                     <td><?php echo $datos['nombre']; ?></td>
-                    <td><?php echo $datos['stock'] . " " .$datos['unidad']; ?></td>
+                    <td><?php echo $datos['cantidad'] . " " .$datos['unidad']; ?></td>
                     <td>$<?php echo $datos['precio']; ?></td>
                 </tr>
                 <?php }

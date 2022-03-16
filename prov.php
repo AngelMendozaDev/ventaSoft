@@ -9,7 +9,7 @@
 ?>
 
 <div class="cont-g">
-    <h1>Control general de Productos</h1>
+    <h1>Control general de Proveedores</h1>
 
     <div class="alert alert-success" id="descrip" role="alert">
         <span class="btn-close" onclick="closeAlert()" id="descrip"><i class="fas fa-times"></i></span>

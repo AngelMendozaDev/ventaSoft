@@ -1,22 +1,21 @@
-/*********************
-* Base de Datos: Punto Venta
-* Fecha de Realización: 27/02/2022
+/*****
+* Base de Datos Venta Soft
 * Realizo: Mendoza Garcia Luis Angel
-************************/
-drop database ventaSoft;
+* Fecha de Realización: 15-03-2022
+**********/
 
-create database ventaSoft;
+drop database ventasoft;
+
+create database ventasoft;
 
 use ventasoft;
-
-/***************ENTIDADES FUERTES******************/
 
 CREATE TABLE sucursal(
 	id_suc int auto_increment not null,
     nombre_suc varchar(60) not null,
     telefono varchar(10) not null,
     rfc varchar(15) default null,
-    logo varchar(10),
+    logo varchar(15),
     primary key(id_suc)
 );
 
@@ -40,6 +39,7 @@ CREATE TABLE proveedores(
     nombre_prov varchar(60) not null,
     empresa varchar(50) not null,
     numero varchar(10) not null,
+    estatus int(1) not null default 1,
     primary key(id_prov)
 );
 
@@ -48,7 +48,16 @@ CREATE TABLE producto(
     nombre varchar(20) not null,
     unidad varchar(5) not null,
     precio decimal(7,2) not null,
+    cantidad decimal(7,2) not null,
     primary key(codigo)
+);
+
+CREATE TABLE prod_may(
+	codigo varchar(15) not null,
+    precioMay decimal(7,2) not null,
+    cantMay decimal(7,2) not null,
+    primary key(codigo),
+    foreign key(codigo) references producto(codigo)
 );
 
 /*****************DIRECCIONES*****************/
@@ -88,34 +97,21 @@ CREATE TABLE notas(
 	id_nota int auto_increment not null,
     usuario int not null,
     n_nota varchar(20) not null,
-    prov varchar(50) not null,
+    prov int not null,
     fecha datetime default now(),
     primary key(id_nota),
-    foreign key(usuario) references usuarios(id_us)
+    foreign key(usuario) references usuarios(id_us),
+    foreign key(prov) references proveedores(id_prov)
 );
 
 CREATE TABLE prod_nota(
 	folio int auto_increment not null,
     nota int not null,
     producto varchar(15) not null,
+    costo decimal(7,2) not null,
     cantidad decimal(7,2) not null,
     primary key(folio),
     foreign key(nota) references notas(id_nota),
-    foreign key(producto) references producto(codigo)
-);
-
-CREATE TABLE almacen(
-	folio_al int auto_increment not null,
-    producto varchar(15) not null,
-    stock decimal(7,2) not null,
-    primary key(folio_al),
-    foreign key(producto) references producto(codigo)
-);
-
-CREATE TABLE faltantes(
-	folio_f int auto_increment not null,
-    producto varchar(15) not null,
-    primary key(folio_f),
     foreign key(producto) references producto(codigo)
 );
 
@@ -134,6 +130,8 @@ CREATE TABLE venta_prod(
 	n_registro int auto_increment not null,
     ticket int not null,
     producto varchar(15) not null,
+    precio_v decimal(7,2) not null,
+    cantidad_v decimal(7,2) not null,
     primary key(n_registro),
     foreign key (ticket) references ventas(folio_v),
     foreign key (producto) references producto(codigo)

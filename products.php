@@ -16,7 +16,7 @@ $result = $modelo->getProductos();
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="$('#formAddProd')[0].reset(); $('#codeBars').prop('disabled', false);">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal" onclick="$('#formAddProd')[0].reset(); $('#codeBars').attr('readonly', false); $('#may').prop('disabled', false); $('#cont-may').empty()">
         <i class="fa fa-plus-circle" aria-hidden="true"></i>
         &nbsp;
         Alta de Producto
@@ -32,6 +32,8 @@ $result = $modelo->getProductos();
                     <th>Nombre</th>
                     <th>Unidad de Venta</th>
                     <th>Precio</th>
+                    <th>Precio May.</th>
+                    <th>Cant May.</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -42,11 +44,13 @@ $result = $modelo->getProductos();
                         <td><?php echo $key['nombre'] ?></td>
                         <td><?php echo $key['unidad'] ?></td>
                         <td>$<?php echo $key['precio'] ?></td>
+                        <td>$<?php echo $key['preciomay'] != null ? $key['preciomay'] : 0; ?></td>
+                        <td><?php echo $key['cantMay'] != null ? $key['cantMay'] : 0.00; ?></td>
                         <td>
                             <button class="btn btn-small btn-primary btn-popover">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <i class="fa fa-plus" aria-hidden="true"></i>
                                 <span class="msg-pop">
-                                    Ver la foto de Producto (Working)
+                                    Agregar Mayoreo
                                 </span>
                             </button>
 
@@ -106,8 +110,15 @@ $result = $modelo->getProductos();
                         <input step="any" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" id="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
                     </div>
 
+                    <input type="checkbox" name="mayoreo" id="may">    
+                    <label for="may" style="cursor: pointer;">Tiene Precio de mayoreo</label>
+
+                    <hr style="width: 90%; margin: auto; margin-bottom: 0px; margin-top: 10px;">
+
+                    <div class="cont-mayoreo" id="cont-may"></div>
+
                     <center>
-                        <button type="submit" class="btn btn-small btn-success ">
+                        <button type="submit" class="btn btn-block btn-success ">
                             <i class="fas fa-save"></i>
                             &nbsp;
                             Guardar

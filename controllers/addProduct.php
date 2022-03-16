@@ -4,9 +4,10 @@ $modelo = new funciones();
 
 $action = $_POST['action'];
 
-if($action == "edit")
-        echo $modelo->updateProd($_POST);
-else
-        echo $modelo->newProd($_POST);
-
-?>
+if ($action == "edit") {
+        $estado = count($_POST) > 6 ? 1 : 0;
+        echo $modelo->updateProd($_POST,$estado);
+} else {
+        $estado = count($_POST) > 6 ? 1 : 0;
+        echo $modelo->newProd($_POST, $estado);
+}

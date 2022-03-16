@@ -45,7 +45,7 @@ $(function() {
             data = JSON.parse(response);
             //console.log(data);
             $.each(data, function(key, item) {
-                $('#prov').append("<option value='" + item.name + "'>" + item.name + "</option>");
+                $('#prov').append("<option value='" + item.id + "'>" + item.name + "</option>");
             });
         }
     });
@@ -71,7 +71,8 @@ $(function() {
                             data = JSON.parse(response);
                             $('#Name').val(data.nombre);
                             $('#Cant').attr('disabled', false);
-                            $('#Cant').focus();
+                            $('#Cost').attr('disabled', false);
+                            $('#Cost').focus();
                         }
                     }
                 });
@@ -87,6 +88,7 @@ $(function() {
             auxCont++;
             code = $('#codeBar').val();
             namep = $('#Name').val();
+            cos = $('#Cost').val();
 
             $('#codeBar').val("");
             $('#Name').val("");
@@ -103,6 +105,9 @@ $(function() {
                 "</td>" +
                 "<td>" +
                 "<input style='width: 50px; text-align:center' name='cantProd[]' step='any' value='" + cant + "' type='number' maxlength='10' oninput='if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' readonly>" +
+                "</td>" +
+                "<td>" +
+                "<input style='width: 50px; text-align:center' name='costProd[]' step='any' value='" + cos + "' type='number' maxlength='10' oninput='if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' readonly>" +
                 "</td>" +
                 "<td>" +
                 "<button type='button' class='btn btn-small btn-danger' onclick='deleteProd(`" + cont + "`)'>" +

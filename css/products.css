@@ -27,3 +27,30 @@
     transition: all 0.5s;
     background-color: rgba(0, 0, 0, 1);
 }
+
+.cont-mayoreo {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+}
+
+.input-group .input-group-text {
+    width: 150px;
+}
+
+.cont-mayoreo .input-group {
+    margin: 5px;
+}
+
+@media(max-width:650px) {
+    .cont-mayoreo {
+        display: block;
+        padding: 0px;
+    }
+    .cont-mayoreo .input-group {
+        margin: 0px;
+    }
+    .input-group .input-group-text {
+        width: 150px;
+    }
+}

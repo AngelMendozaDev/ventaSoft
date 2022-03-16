@@ -37,7 +37,7 @@ class funciones extends config
 
         if ($conexion == false)
             return 3;
-        $query = $conexion->prepare("select * from allProducts");
+        $query = $conexion->prepare("select * from getAllProd");
         $query->execute();
 
         $result = $query->get_result();
@@ -53,7 +53,7 @@ class funciones extends config
 
         if ($conexion == false)
             return 3;
-        $query = $conexion->prepare("select * from allProv");
+        $query = $conexion->prepare("select * from getAllProv");
         $query->execute();
 
         $result = $query->get_result();
@@ -68,7 +68,7 @@ class funciones extends config
      * Crud Productos
      */
 
-    public function newProd($object)
+    public function newProd($object, $edo)
     {
         $conexion = config::conexion();
 
@@ -86,6 +86,14 @@ class funciones extends config
         $response = $query->execute();
 
         $query->close();
+
+        if ($response == 1 && $edo == 1) {
+            $query = $conexion->prepare("CALL newProdMay(?,?,?)");
+            $query->bind_param('sss', $object['codeBars'], $object['priceMay'], $object['cantMay']);
+            $response = $query->execute();
+
+            $query->close();
+        }
 
         return $response;
     }
@@ -118,7 +126,7 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
-        $query = $conexion->prepare('SELECT * FROM producto WHERE codigo = ?');
+        $query = $conexion->prepare('SELECT p.*, m.preciomay, m.cantMay FROM producto AS p LEFT JOIN prod_may AS m ON m.codigo = p.codigo WHERE p.codigo = ?');
         $query->bind_param('s', $code);
         $query->execute();
 
@@ -132,17 +140,20 @@ class funciones extends config
         return "err";
     }
 
-    public function updateProd($object)
+    public function updateProd($object,$estado)
     {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
-
+        $valorx = -1;
         $name = strtoupper($object['nameProduct']);
+        $query = $conexion->prepare("CALL updateProd(?,?,?,?,?,?,?)");
+        if($estado > 0)
+            $query->bind_param('sssssss', $object['codeBars'], $name, $object['unidad'], $object['price'],$object['priceMay'],$object['cantMay'], $object['user']);
+        else
+            $query->bind_param('sssssss', $object['codeBars'], $name, $object['unidad'], $object['price'], $valorx,$valorx, $object['user']);
 
-        $query = $conexion->prepare("CALL updateProd(?,?,?,?,?)");
-        $query->bind_param('sssss', $object['codeBars'], $name, $object['unidad'], $object['price'], $object['user']);
         $response = $query->execute();
 
         $query->close();
@@ -240,8 +251,8 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
-        $query = $conexion->prepare('Call deleteProv(?,?,?)');
-        $query->bind_param('sss', $object['prov'], $object['phone'], $object['user']);
+        $query = $conexion->prepare('Call deleteProv(?,?)');
+        $query->bind_param('ss', $object['prov'], $object['user']);
         $result = $query->execute();
 
         $query->close();
@@ -261,7 +272,7 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
-        $query = $conexion->prepare("select * from getAllNameProv");
+        $query = $conexion->prepare("select * from getAllProv");
         $query->execute();
 
         $result = $query->get_result();
@@ -270,6 +281,7 @@ class funciones extends config
 
         while ($data = $result->fetch_assoc()) {
             $json[] = array(
+                "id" => $data['id_prov'],
                 "name" => $data['empresa']
             );
         }
@@ -310,10 +322,10 @@ class funciones extends config
         $query->close();
 
         if ($result == 1) {
-            $query= $conexion->prepare("call newNoteProd(?,?,?,?)");
-            for($i = 0; $i < count($object['codeNote']); $i++){
-                 $query->bind_param('ssss',$id, $object['codeNote'][$i], $object['cantProd'][$i], $object['user']);
-                 if($query->execute() != 1)
+            $query = $conexion->prepare("call newNoteProd(?,?,?,?,?)");
+            for ($i = 0; $i < count($object['codeNote']); $i++) {
+                $query->bind_param('sssss', $id, $object['codeNote'][$i],$object['costProd'][$i], $object['cantProd'][$i], $object['user']);
+                if ($query->execute() != 1)
                     return "err";
             }
             return "1";
@@ -340,38 +352,40 @@ class funciones extends config
         return false;
     }
 
-    public function getLastId(){
+    public function getLastId()
+    {
         $conexion = config::conexion();
 
-         if($conexion == false)
-         return 3;
+        if ($conexion == false)
+            return 3;
 
-         $query = $conexion->prepare("select * from lastNote");
-         $query->execute();
-         $result = $query->get_result()->fetch_assoc();
+        $query = $conexion->prepare("select * from lastNote");
+        $query->execute();
+        $result = $query->get_result()->fetch_assoc();
         $query->close();
-         return $result;
+        return $result;
     }
 
-    public function getDetail($nota){
+    public function getDetail($nota)
+    {
         $conexion = config::conexion();
 
-         if($conexion == false)
-         return 3;
+        if ($conexion == false)
+            return 3;
 
         $query = $conexion->prepare("SELECT nn.n_nota, nn.prov, p.codigo, p.nombre, n.cantidad, p.unidad, p.precio FROM prod_nota AS n INNER JOIN producto AS p ON p.codigo = n.producto INNER JOIN notas AS nn ON nn.id_nota = n.nota WHERE n.nota = ?");
-        $query->bind_param('s',$nota);
+        $query->bind_param('s', $nota);
         $query->execute();
 
         $result = $query->get_result();
 
         $query->close();
 
-        while($data = $result->fetch_assoc()){
+        while ($data = $result->fetch_assoc()) {
             $json[] = array(
                 "code" => $data['codigo'],
                 "name" => $data['nombre'],
-                "cant" => $data['cantidad']."-".$data['unidad'],
+                "cant" => $data['cantidad'] . "-" . $data['unidad'],
                 "prov" => $data['prov'],
                 "note" => $data['n_nota']
             );
@@ -380,36 +394,37 @@ class funciones extends config
         return $json;
     }
 
-    public function getAlmacen(){
+    public function getAlmacen()
+    {
         $conexion = config::conexion();
 
-         if($conexion == false)
-         return 3;
+        if ($conexion == false)
+            return 3;
 
-         $query = $conexion->prepare("SELECT * FROM getAlmacen");
-         $query->execute();
+        $query = $conexion->prepare("SELECT * FROM getAlmacen");
+        $query->execute();
 
-         $result = $query->get_result();
+        $result = $query->get_result();
 
-         $query->close();
+        $query->close();
 
-         return $result;
+        return $result;
     }
 
-    public function getFaltantes(){
+    public function getFaltantes()
+    {
         $conexion = config::conexion();
 
-         if($conexion == false)
-         return 3;
+        if ($conexion == false)
+            return 3;
 
-         $query = $conexion->prepare("SELECT * FROM getFaltantes");
-         $query->execute();
+        $query = $conexion->prepare("SELECT * FROM getFaltantes");
+        $query->execute();
 
-         $result = $query->get_result();
+        $result = $query->get_result();
 
-         $query->close();
+        $query->close();
 
-         return $result;
+        return $result;
     }
-
 }
