@@ -486,4 +486,20 @@ class funciones extends config
         return false;
     }
 
+    public function getPersona($person){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("SELECT p.id_p, p.nombre, p.app, p.apm, p.telefono, u.tipo, u.usuario FROM persona AS p inner join usuarios as u on p.id_p = u.id_us WHERE p.id_p = ?");
+        $query->bind_param('s',$person);
+        $query->execute();
+        $result = $query->get_result()->fetch_assoc();
+        
+        $query->close();
+
+        return $result;
+    } 
+
 }

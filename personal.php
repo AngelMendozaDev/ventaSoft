@@ -17,7 +17,7 @@ $result = $model->getAllPersonal();
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPersonal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPersonal" onclick="$('#action').val('')">
         <i class="fa fa-user-plus" aria-hidden="true"></i>
         &nbsp;
         Nueva contratación
@@ -47,7 +47,7 @@ $result = $model->getAllPersonal();
                             <button class="btn btn-primary btn-small">
                                 <i class="fas fa-user-lock"></i>
                             </button>
-                            <button class="btn btn-warning btn-small">
+                            <button class="btn btn-warning btn-small" data-bs-toggle="modal" data-bs-target="#modalPersonal" onclick="getUser('<?php echo $data['id_p'] ?>')">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </td>
@@ -70,7 +70,9 @@ $result = $model->getAllPersonal();
             <div class="modal-body">
                 <form method="POST" class="form-personal" onsubmit="return addPerson()" id="form-personal">
                     <input type="text" name="user" value="<?php echo $_SESSION['ID'] ?>" hidden>
-                    <input type="text" name="action">
+                    <input type="text" name="action" id="action" hidden>
+                    <input type="text" name="id_us" id="id_us" hidden>
+
                     <label>Datos Personales</label>
                     <div class="personal-cont">
                         <div class="input-group dato">

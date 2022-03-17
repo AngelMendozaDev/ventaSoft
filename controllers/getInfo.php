@@ -22,6 +22,10 @@
     case "getDetailNote":
         echo json_encode($model->getDetail($_POST['note']));
         break;
+
+    case "getPersonal":
+        echo json_encode($model->getPersona($_POST['persona']));
+        break;
  }
 
 
