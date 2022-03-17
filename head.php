@@ -126,28 +126,6 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <i class="fas fa-chart-line"></i>
-                            &nbsp;
-                            Reportes
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordeon">
-                        <div class="accordion-body">
-                            <ul class="sub-menu">
-                                <li class="sub-menu-item">
-                                    <a href="">
-                                        <i class="fas fa-chart-line"></i>
-                                        &nbsp;
-                                        Generar Reporte
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFor">
@@ -172,6 +150,28 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                     </div>
                 </div>
 
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <i class="fas fa-chart-line"></i>
+                            &nbsp;
+                            Reportes
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordeon">
+                        <div class="accordion-body">
+                            <ul class="sub-menu">
+                                <li class="sub-menu-item">
+                                    <a href="">
+                                        <i class="fas fa-chart-line"></i>
+                                        &nbsp;
+                                        Generar Reporte
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Fin accordeon -->
 

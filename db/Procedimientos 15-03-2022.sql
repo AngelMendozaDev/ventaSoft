@@ -22,6 +22,10 @@ create view getAllNotes as select * from notas;
 
 create view lastNote as select max(id_nota) from notas;
 
+create view getFaltantes as select * from producto where cantidad < 3;
+
+create view getAllPersonal as select p.id_p, p.nombre, p.app, p.apm, p.telefono, u.tipo from persona as p inner join usuarios as u on p.id_p = u.id_us;
+
 /*******PROCEDURES*******/
 DELIMITER $$
 	CREATE PROCEDURE newProd(

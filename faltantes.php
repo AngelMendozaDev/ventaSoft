@@ -9,7 +9,7 @@
 
 <div class="cont-g">
     <center>
-    <h1>Lista de Productos Faltantes </h1>
+    <h1>Productos por terminar</h1>
     </center>
 
     <hr style="margin-top: 15px; margin-bottom: 15px; width: 90%; margin: auto; color: #fff;">
@@ -30,7 +30,7 @@
                 <tr>
                     <td><?php echo $datos['codigo']; ?></td>
                     <td><?php echo $datos['nombre']; ?></td>
-                    <td><?php echo $datos['stock'] . " " .$datos['unidad']; ?></td>
+                    <td><?php echo $datos['cantidad'] . " " .$datos['unidad']; ?></td>
                     <td>$<?php echo $datos['precio']; ?></td>
                 </tr>
                 <?php } ?>

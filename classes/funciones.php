@@ -427,4 +427,24 @@ class funciones extends config
 
         return $result;
     }
+
+    /***********************
+     *    CRUD --  PERSONAS
+     ************************************************/
+
+    public function getAllPersonal(){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("select * from getAllPersonal");
+        $query->execute();
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result;
+    }
+
 }
