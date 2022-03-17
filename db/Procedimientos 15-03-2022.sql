@@ -156,3 +156,26 @@ create procedure newNoteProd(
     end
     $$
 DELIMITER ;
+
+/**************************************************************************************
+****** PERSONAL
+******************************************/
+DELIMITER $$
+create procedure newPersona(
+	in namep varchar(20),
+    in myApp varchar(25),
+    in myApm varchar(25),
+    in phone varchar(10),
+    in myUser varchar(15),
+    in tipo int,
+    in id_user int
+    )
+	begin
+		declare last_id int default 0;
+		insert into persona(nombre, app,apm,telefono) values (namep,myApp, myApm, phone);
+        SET last_id = LAST_INSERT_ID();
+        insert into usuarios(tipo, persona, usuario,contra) values (tipo, last_id, myUser,'123');
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"NEW USER",last_id);
+    end
+    $$
+DELIMITER ;

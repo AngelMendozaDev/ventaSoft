@@ -447,4 +447,43 @@ class funciones extends config
         return $result;
     }
 
+    public function newPersonal($object){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        else if(self::existPersonal($object['phone'],$object['nameUser']))
+             return "exist";
+        
+        $name = strtoupper($object['name']);
+        $app = strtoupper($object['app']);
+        $apm = strtoupper($object['apm']);
+        $user = strtoupper($object['nameUser']);
+
+        $query= $conexion->prepare('call newPersona(?,?,?,?,?,?,?)');
+        $query->bind_param('sssssss',$name,$app,$apm,$object['phone'],$user,$object['tipo'],$object['user']);
+        $result = $query->execute();
+        $query->close();
+
+        return $result;
+    }
+
+    public function existPersonal($number, $user){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("SELECT p.id_p, p.app, p.apm, u.usuario, u.contra FROM persona AS p INNER JOIN usuarios AS u ON u.id_us = p.id_p WHERE p.telefono = ? OR u.usuario = ?");
+        $query->bind_param('ss',$number,$user);
+        $query->execute();
+        $result = $query->get_result();
+        $query->close();
+
+        if($result->num_rows > 0){
+            return true;
+        }
+        return false;
+    }
+
 }

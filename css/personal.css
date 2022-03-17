@@ -1,0 +1,55 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.col-acct{
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+    align-items: center;
+    align-content: center;
+}
+
+.col-acct .btn{
+    margin: auto;
+}
+
+.personal-cont, .user-cont{
+    padding: 10px;
+    border: 2px solid rgba(0,0,0,0.5);
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.dato .input-group-text{
+    width: 110px;
+}
+
+.dato, .user-dato{
+    width: 300px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.dato .form-control{
+    text-transform: uppercase;
+}
+
+.user-dato .form-control{
+    text-transform: uppercase;
+}
+
+.form-personal label{
+    padding: 0px 15px;
+}
+
+@media(max-width:750px){
+    .table-cont{
+        overflow-x: scroll;
+    }
+    
+}
