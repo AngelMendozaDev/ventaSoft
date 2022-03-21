@@ -44,6 +44,12 @@ $_SESSION['ID'] = "";
             </div>
 
             <button type="submit" class="btn-start">Iniciar Sesión</button>
+
+            <h3 class="author-v" onclick="ventas()">
+                Click aqui:
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                <span class="author">Ventas</span>
+            </h3>
         </form>
         <h3 class="author-g">
             Copyright TecNM Campus Tláhuac

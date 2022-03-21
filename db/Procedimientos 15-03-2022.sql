@@ -180,23 +180,34 @@ create procedure newPersona(
     $$
 DELIMITER ;
 
-
 DELIMITER $$
-create procedure newPersona(
+create procedure updatePersona(
 	in namep varchar(20),
     in myApp varchar(25),
     in myApm varchar(25),
     in phone varchar(10),
     in myUser varchar(15),
     in tipo int,
+    in idp int,
     in id_user int
     )
 	begin
-		declare last_id int default 0;
-		insert into persona(nombre, app,apm,telefono) values (namep,myApp, myApm, phone);
-        SET last_id = LAST_INSERT_ID();
-        insert into usuarios(tipo, persona, usuario,contra) values (tipo, last_id, myUser,'123');
-        insert into bitacora(usuario, movimiento,coment) values (id_user,"NEW USER",last_id);
+		update persona set nombre = namep, app = myApp, apm = myApm, telefono = phone where id_p = idp;
+        update usuarios set tipo = tipo, usuario = myUser where persona = idp;
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"UPDATE USER",idp);
+    end
+    $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure updatePass(
+	in myPass varchar(15),
+    in idp int,
+    in id_user int
+    )
+	begin
+        update usuarios set contra = myPass where persona = idp;
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"UPDATE PASS",idp);
     end
     $$
 DELIMITER ;

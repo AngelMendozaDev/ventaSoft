@@ -108,6 +108,14 @@ body::before {
     background-color: #104c71;
     color: #fff;
     font-size: 20px;
+    transition: all 0.5s;
+}
+
+.btn-start:hover {
+    color: #104c71;
+    background-color: rgb(214, 214, 214);
+    border-radius: 10px;
+    transition: all 0.5s;
 }
 
 .author-g {
@@ -115,4 +123,19 @@ body::before {
     font-size: 10px;
     text-align: center;
     margin-top: 10px;
+}
+
+.author-v {
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.author-v:hover {
+    text-decoration: underline 2px;
+    color: cadetblue;
+    transition: all 0.5s;
 }

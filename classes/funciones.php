@@ -140,7 +140,7 @@ class funciones extends config
         return "err";
     }
 
-    public function updateProd($object,$estado)
+    public function updateProd($object, $estado)
     {
         $conexion = config::conexion();
 
@@ -149,10 +149,10 @@ class funciones extends config
         $valorx = -1;
         $name = strtoupper($object['nameProduct']);
         $query = $conexion->prepare("CALL updateProd(?,?,?,?,?,?,?)");
-        if($estado > 0)
-            $query->bind_param('sssssss', $object['codeBars'], $name, $object['unidad'], $object['price'],$object['priceMay'],$object['cantMay'], $object['user']);
+        if ($estado > 0)
+            $query->bind_param('sssssss', $object['codeBars'], $name, $object['unidad'], $object['price'], $object['priceMay'], $object['cantMay'], $object['user']);
         else
-            $query->bind_param('sssssss', $object['codeBars'], $name, $object['unidad'], $object['price'], $valorx,$valorx, $object['user']);
+            $query->bind_param('sssssss', $object['codeBars'], $name, $object['unidad'], $object['price'], $valorx, $valorx, $object['user']);
 
         $response = $query->execute();
 
@@ -324,7 +324,7 @@ class funciones extends config
         if ($result == 1) {
             $query = $conexion->prepare("call newNoteProd(?,?,?,?,?)");
             for ($i = 0; $i < count($object['codeNote']); $i++) {
-                $query->bind_param('sssss', $id, $object['codeNote'][$i],$object['costProd'][$i], $object['cantProd'][$i], $object['user']);
+                $query->bind_param('sssss', $id, $object['codeNote'][$i], $object['costProd'][$i], $object['cantProd'][$i], $object['user']);
                 if ($query->execute() != 1)
                     return "err";
             }
@@ -432,7 +432,8 @@ class funciones extends config
      *    CRUD --  PERSONAS
      ************************************************/
 
-    public function getAllPersonal(){
+    public function getAllPersonal()
+    {
         $conexion = config::conexion();
 
         if ($conexion == false)
@@ -447,59 +448,97 @@ class funciones extends config
         return $result;
     }
 
-    public function newPersonal($object){
+    public function newPersonal($object)
+    {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
-        else if(self::existPersonal($object['phone'],$object['nameUser']))
-             return "exist";
-        
+        else if (self::existPersonal($object['phone'], $object['nameUser']))
+            return "exist";
+
         $name = strtoupper($object['name']);
         $app = strtoupper($object['app']);
         $apm = strtoupper($object['apm']);
         $user = strtoupper($object['nameUser']);
 
-        $query= $conexion->prepare('call newPersona(?,?,?,?,?,?,?)');
-        $query->bind_param('sssssss',$name,$app,$apm,$object['phone'],$user,$object['tipo'],$object['user']);
+        $query = $conexion->prepare('call newPersona(?,?,?,?,?,?,?)');
+        $query->bind_param('sssssss', $name, $app, $apm, $object['phone'], $user, $object['tipo'], $object['user']);
         $result = $query->execute();
         $query->close();
 
         return $result;
     }
 
-    public function existPersonal($number, $user){
+    public function existPersonal($number, $user)
+    {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
 
         $query = $conexion->prepare("SELECT p.id_p, p.app, p.apm, u.usuario, u.contra FROM persona AS p INNER JOIN usuarios AS u ON u.id_us = p.id_p WHERE p.telefono = ? OR u.usuario = ?");
-        $query->bind_param('ss',$number,$user);
+        $query->bind_param('ss', $number, $user);
         $query->execute();
         $result = $query->get_result();
         $query->close();
 
-        if($result->num_rows > 0){
+        if ($result->num_rows > 0) {
             return true;
         }
         return false;
     }
 
-    public function getPersona($person){
+    public function getPersona($person)
+    {
         $conexion = config::conexion();
 
         if ($conexion == false)
             return 3;
 
         $query = $conexion->prepare("SELECT p.id_p, p.nombre, p.app, p.apm, p.telefono, u.tipo, u.usuario FROM persona AS p inner join usuarios as u on p.id_p = u.id_us WHERE p.id_p = ?");
-        $query->bind_param('s',$person);
+        $query->bind_param('s', $person);
         $query->execute();
         $result = $query->get_result()->fetch_assoc();
-        
+
         $query->close();
 
         return $result;
-    } 
+    }
+
+    public function updatePersona($object)
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        $name = strtoupper($object['name']);
+        $app = strtoupper($object['app']);
+        $apm = strtoupper($object['apm']);
+        $user = strtoupper($object['nameUser']);
+
+        $query = $conexion->prepare("call updatePersona(?,?,?,?,?,?,?,?)");
+        $query->bind_param('ssssssss', $name, $app, $apm, $object['phone'], $user, $object['tipo'], $object['id_us'] ,$object['user']);
+        $result = $query->execute();
+        $query->close();
+
+        return $result;
+    }
+
+    public function updatePass($object){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $pass = 1234;
+        
+        $query = $conexion->prepare("call updatePass(?,?,?)");
+        $query->bind_param('sss',$pass, $object['person'],$object['user']);
+        $result = $query->execute();
+        $query->close();
+        return $result;
+    }
 
 }
+ 

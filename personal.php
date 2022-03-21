@@ -44,7 +44,7 @@ $result = $model->getAllPersonal();
                         <td><?php echo $data['nombre']; ?></td>
                         <td><?php echo $data['tipo'] == 1 ? "*<i class='fas fa-user-tie'></i>" : "/<i class='fas fa-user-tag'></i>"; ?></td>
                         <td class="col-acct">
-                            <button class="btn btn-primary btn-small">
+                            <button class="btn btn-primary btn-small" onclick="resetPass('<?php echo $data['id_p'] ?>','<?php echo $_SESSION['ID']; ?>')">
                                 <i class="fas fa-user-lock"></i>
                             </button>
                             <button class="btn btn-warning btn-small" data-bs-toggle="modal" data-bs-target="#modalPersonal" onclick="getUser('<?php echo $data['id_p'] ?>')">

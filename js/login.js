@@ -17,3 +17,14 @@ function logIn() {
 
     return false;
 }
+
+function ventas() {
+    swal("Nuemro de Sucursal", {
+            content: "input",
+        })
+        .then((value) => {
+            if (value != "") {
+                location.href = "mainpv.php?suc=" + value;
+            }
+        });
+}
