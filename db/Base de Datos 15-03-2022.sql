@@ -30,6 +30,7 @@ CREATE TABLE persona(
     nombre varchar(20) not null,
     app varchar(25) not null,
     apm varchar(25) not null,
+    sexo char(1) not null,
     telefono varchar(10) not null,
     primary key(id_p)
 );

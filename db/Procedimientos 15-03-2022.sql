@@ -3,7 +3,7 @@ INSERT INTO `sucursal` (`id_suc`, `nombre_suc`, `telefono`, `rfc`, `logo`) VALUE
 
 INSERT INTO `direccion_s` (`id_dirS`, `calle`, `cp`, `alcaldia`, `colonia`) VALUES ('1', 'GUADALUPE VICTORIA #267', '13450', 'TLAHUAC', 'GUADALUPE TLALTENCO');
 
-INSERT INTO `persona` (`id_p`, `nombre`, `app`, `apm`, `telefono`) VALUES (NULL, 'LUIS ANGEL', 'MENDOZA', 'GARCIA', '5564477055');
+INSERT INTO `persona` (`id_p`, `nombre`, `app`, `apm`, `sexo` , `telefono`) VALUES (NULL, 'LUIS ANGEL', 'MENDOZA', 'GARCIA','H','5564477055');
 
 INSERT INTO `direccion_p` (`id_dirP`, `calle`, `cp`, `alcaldia`, `colonia`) VALUES ('1', 'GUADALUPE VICTORIA #267', '13450', 'TLAHUAC', 'GUADALUPE TLALTENCO');
 
@@ -25,6 +25,8 @@ create view lastNote as select max(id_nota) from notas;
 create view getFaltantes as select * from producto where cantidad < 3;
 
 create view getAllPersonal as select p.id_p, p.nombre, p.app, p.apm, p.telefono, u.tipo from persona as p inner join usuarios as u on p.id_p = u.id_us;
+
+create view getAllCajas as select p.id_p, p.nombre, p.app, p.sexo, u.tipo, u.usuario from persona as p inner join usuarios as u on p.id_p = u.id_us;
 
 /*******PROCEDURES*******/
 DELIMITER $$
@@ -165,6 +167,7 @@ create procedure newPersona(
 	in namep varchar(20),
     in myApp varchar(25),
     in myApm varchar(25),
+    in sexo char(1),
     in phone varchar(10),
     in myUser varchar(15),
     in tipo int,
@@ -172,7 +175,7 @@ create procedure newPersona(
     )
 	begin
 		declare last_id int default 0;
-		insert into persona(nombre, app,apm,telefono) values (namep,myApp, myApm, phone);
+		insert into persona(nombre, app,apm,sexo,telefono) values (namep,myApp, myApm, sexo, phone);
         SET last_id = LAST_INSERT_ID();
         insert into usuarios(tipo, persona, usuario,contra) values (tipo, last_id, myUser,'123');
         insert into bitacora(usuario, movimiento,coment) values (id_user,"NEW USER",last_id);
@@ -185,6 +188,7 @@ create procedure updatePersona(
 	in namep varchar(20),
     in myApp varchar(25),
     in myApm varchar(25),
+    in sexo char(1),
     in phone varchar(10),
     in myUser varchar(15),
     in tipo int,
@@ -192,7 +196,7 @@ create procedure updatePersona(
     in id_user int
     )
 	begin
-		update persona set nombre = namep, app = myApp, apm = myApm, telefono = phone where id_p = idp;
+		update persona set nombre = namep, app = myApp, apm = myApm, sexo = sexo, telefono = phone where id_p = idp;
         update usuarios set tipo = tipo, usuario = myUser where persona = idp;
         insert into bitacora(usuario, movimiento,coment) values (id_user,"UPDATE USER",idp);
     end

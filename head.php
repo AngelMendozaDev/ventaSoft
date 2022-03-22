@@ -1,9 +1,4 @@
-<?php
-session_start();
 
-if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
-    header("location:index.php");
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -55,7 +50,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
         </label>
         <div class="menu-head">
             <div class="menu-img">
-                <img src="media/images/Woman-Avatar.png" alt="">
+                <img src="media/images/<?php echo $_SESSION['Picture'] ?>.svg" alt="">
             </div>
             <br>
             <h6 class="name-menu"><?php echo $_SESSION['NameUs']  ?></h6>

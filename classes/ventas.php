@@ -22,4 +22,20 @@ class Ventas extends Config
 
         return 0;
     }
+
+    public function getAllPersonal()
+    {
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("select * from getAllCajas");
+        $query->execute();
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result;
+    }
 }

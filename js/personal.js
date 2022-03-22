@@ -4,7 +4,7 @@ function addPerson() {
         type: 'POST',
         data: $('#form-personal').serialize(),
         success: function(response) {
-            console.log(response);
+            //console.log(response);
             if (response.trim() == 1) {
                 swal({
                         title: "Persona Guardada, con exíto",
@@ -32,7 +32,7 @@ function getUser(persona) {
         type: 'POST',
         data: { Tipo: "getPersonal", persona: persona },
         success: function(response) {
-            console.log(response);
+            //console.log(response);
             data = JSON.parse(response);
             $('#name').val(data.nombre);
             $('#app').val(data.app);
@@ -41,6 +41,12 @@ function getUser(persona) {
             $('#nameUser').val(data.usuario);
             $('#tipo').val(data.tipo);
             $('#id_us').val(data.id_p);
+            if(data.sexo == 'H'){
+                $("#sHombre").prop("checked", true);
+            }
+            else{
+                $("#sMujer").prop("checked", true);
+            }
         }
     });
 }
@@ -60,7 +66,7 @@ function resetPass(persona, user) {
                     type: "POST",
                     data: { action: "reset", user: user, person: persona },
                     success: function(response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response.trim() == 1) {
                             swal({
                                     title: "Contraseña [1234] Guardada, con exíto",

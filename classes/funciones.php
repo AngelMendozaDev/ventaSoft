@@ -12,7 +12,7 @@ class funciones extends config
 
         if ($conexion == false)
             return 3;
-        $query = $conexion->prepare("SELECT u.id_us, p.nombre, p.app FROM usuarios AS u INNER JOIN persona AS p ON p.id_p = u.id_us WHERE u.usuario = ? AND u.contra = ?");
+        $query = $conexion->prepare("SELECT u.id_us, p.nombre, p.app, p.sexo FROM usuarios AS u INNER JOIN persona AS p ON p.id_p = u.id_us WHERE u.usuario = ? AND u.contra = ?");
         $query->bind_param('ss', $object['us'], $object['pass']);
         $query->execute();
 
@@ -23,6 +23,7 @@ class funciones extends config
 
             $_SESSION['ID'] = $data['id_us'];
             $_SESSION['NameUs'] = $data['nombre'] . " " . $data['app'];
+            $_SESSION['Picture'] = $data['sexo'];
             return 1;
         }
 
@@ -462,8 +463,8 @@ class funciones extends config
         $apm = strtoupper($object['apm']);
         $user = strtoupper($object['nameUser']);
 
-        $query = $conexion->prepare('call newPersona(?,?,?,?,?,?,?)');
-        $query->bind_param('sssssss', $name, $app, $apm, $object['phone'], $user, $object['tipo'], $object['user']);
+        $query = $conexion->prepare('call newPersona(?,?,?,?,?,?,?,?)');
+        $query->bind_param('ssssssss', $name, $app, $apm, $object['sexo'],$object['phone'], $user, $object['tipo'], $object['user']);
         $result = $query->execute();
         $query->close();
 
@@ -496,7 +497,7 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
-        $query = $conexion->prepare("SELECT p.id_p, p.nombre, p.app, p.apm, p.telefono, u.tipo, u.usuario FROM persona AS p inner join usuarios as u on p.id_p = u.id_us WHERE p.id_p = ?");
+        $query = $conexion->prepare("SELECT p.id_p, p.nombre, p.app, p.apm, p.sexo, p.telefono, u.tipo, u.usuario FROM persona AS p inner join usuarios as u on p.id_p = u.id_us WHERE p.id_p = ?");
         $query->bind_param('s', $person);
         $query->execute();
         $result = $query->get_result()->fetch_assoc();
@@ -517,8 +518,8 @@ class funciones extends config
         $apm = strtoupper($object['apm']);
         $user = strtoupper($object['nameUser']);
 
-        $query = $conexion->prepare("call updatePersona(?,?,?,?,?,?,?,?)");
-        $query->bind_param('ssssssss', $name, $app, $apm, $object['phone'], $user, $object['tipo'], $object['id_us'] ,$object['user']);
+        $query = $conexion->prepare("call updatePersona(?,?,?,?,?,?,?,?,?)");
+        $query->bind_param('sssssssss', $name, $app, $apm, $object['sexo'], $object['phone'], $user, $object['tipo'], $object['id_us'] ,$object['user']);
         $result = $query->execute();
         $query->close();
 

@@ -17,7 +17,7 @@ $result = $model->getAllPersonal();
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPersonal" onclick="$('#action').val('')">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPersonal" onclick="$('#form-personal')[0].reset()">
         <i class="fa fa-user-plus" aria-hidden="true"></i>
         &nbsp;
         Nueva contratación
@@ -92,6 +92,25 @@ $result = $model->getAllPersonal();
                             <input type="number" name="phone" id="phone" class="form-control" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
                         </div>
                     </div>
+
+                    <center>
+                        <div class="input-group w-50 mx-auto">
+                            <span style="margin-right: 20px;">
+                                Sexo:
+                            </span>
+                            <div class="input-form">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sexo" id="sHombre" value="H" required>
+                                    <label class="form-check-label" for="sHombre">Masculino</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sexo" id="sMujer" value="F" required>
+                                    <label class="form-check-label" for="sMujer">Femenino</label>
+                                </div>
+                            </div>
+                        </div>
+                    </center>
+
                     <label>Info. user</label>
                     <div class="user-cont">
                         <div class="input-group user-dato">

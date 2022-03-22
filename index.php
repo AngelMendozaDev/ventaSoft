@@ -22,7 +22,7 @@ $_SESSION['ID'] = "";
 
     <div class="login-container">
         <div class="login-img">
-            <img src="media/images/Woman-Avatar.png" alt="">
+            <img src="media/images/F.svg" alt="">
         </div>
         <h1 class="title-log">VentaSoft</h1>
         <hr class="separador">
@@ -52,7 +52,7 @@ $_SESSION['ID'] = "";
             </h3>
         </form>
         <h3 class="author-g">
-            Copyright TecNM Campus Tláhuac
+            Copyright <a style="text-decoration: none; color: rgba(9,170,198,0.5);" href="https://lumega-mx.com/" target="_blank">LUMEGA-MX</a>
             <i class="fa fa-copyright" aria-hidden="true"></i>
             <span class="author">/ Diseño Mendoza G. Luis A.</span>
         </h3>

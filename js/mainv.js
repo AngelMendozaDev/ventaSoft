@@ -1,3 +1,10 @@
+function login(sex,name){
+    $('#Login').show();
+    $('#us').val(name)
+    $('#img-login').prop('src','media/images/'+sex+'.svg')
+    $('#pass').focus();
+}
+
 function logIn() {
     $.ajax({
         url: 'controllers/logIn.php',
@@ -7,7 +14,7 @@ function logIn() {
             //console.log(response);
             response = response.trim();
             if (response == 1)
-                location.href = "main.php";
+                location.href = "ventas.php";
             else if (response == 2)
                 swal("Usuario/Contraseña Incorrectos", "LUMEGA-MX ESTUDIO 2022", "error");
             else if (response == 3)
@@ -18,13 +25,10 @@ function logIn() {
     return false;
 }
 
-function ventas() {
-    swal("NÚMERO DE SUCURSAL", {
-            content: "input",
-        })
-        .then((value) => {
-            if (value != "") {
-                location.href = "mainpv.php?suc=" + value;
-            }
-        });
-}
+$(function(){
+    $('#Login').hide()
+
+    $('#closeL').click(function(){
+        $('#Login').hide();
+    });
+});
