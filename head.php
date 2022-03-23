@@ -1,5 +1,12 @@
 <?php
 session_start();
+<<<<<<< HEAD
+=======
+
+if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
+    header("location:index.php");
+?>
+>>>>>>> 67281ed5281b4f9553dc00afaaf7eff10a8cb17a
 
 if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
     header("location:index.php");
