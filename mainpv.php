@@ -1,19 +1,21 @@
 <?php
+require_once "headv.php";
 require_once "classes/ventas.php";
 $model = new Ventas();
 $sucursal = $_GET['suc'];
 $_SESSION['suc'] = $sucursal;
 $result = $model->existSuc($sucursal);
 if ($result == 1) {
-    session_start();
     $_SESSION['suc'] = $sucursal;
     $persons = $model->getAllPersonal();
-    require_once "headv.php";
 } else
     header('location:index.php');
 ?>
 <link rel="stylesheet" href="css/esLogin.css">
 <div class="jumbotron jumbotron-fluid text-center">
+    <a href="index.php" style=" position: absolute; right: 100px; font-size: 30px; color: red;">
+        <i class="fa fa-times-circle" aria-hidden="true"></i>
+    </a>
     <div class="container">
         <h1 class="display-3">Ventas</h1>
         <p class="lead">Listos para Vender</p>

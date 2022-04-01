@@ -1,10 +1,8 @@
 <?php
-session_start();
-
+require_once "headv.php";
 if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
     header("location:index.php");
 ?>
-<?php require_once "headv.php"; ?>
 <link rel="stylesheet" href="css/venta.css">
 
 <div class="jumbotron jumbotron-fluid mt-5">
@@ -26,33 +24,42 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                     <input type="text" class="form-control" name="codeBars" id="codeBars" placeholder="Código de Barras" required>
                 </div>
-                <button class="btn btn-primary btn-small">
+                <button class="btn btn-primary btn-small" onclick="getProd()">
                     <i class="fa fa-plus-square" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="cont-table">
+        <form class="cont-table" id="form-compra">
+            <input type="text" value="<?php echo $_SESSION['ID'] ?>" name="user" hidden>
             <table class="table table-bordered table-responsive table-small">
-                <thead class="table-primary text-center">
+                <thead class="table-primary text-center mx-auto">
                     <tr>
-                        <th>col1</th>
-                        <th>col2</th>
-                        <th>col3</th>
-                        <th>col4</th>
+                        <th>Codigp</th>
+                        <th>Producto</th>
+                        <th>Precio Unit.</th>
+                        <th>Cantidad</th>
+                        <th>Importe</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="text-center">
-                    <tr>
-                        <td>data1</td>
-                        <td>data2</td>
-                        <td>data3</td>
-                        <td>data4</td>
-                    </tr>
+                <tbody class="text-center" id="lienzo-venta">
                 </tbody>
             </table>
-        </div>
+            <div class="total-cont">
+                <center>
+                    <div class="input-group w-50">
+                        <span class="input-group-text etiqueta">Total: $</span>
+                        <input type="text" class="form-control etiqueta" name="total" id="total" readonly>
+                        <button type="button" class="btn btn-success w-100" id="btn-pagar">
+                            Pagar &nbsp; 
+                            <i class="fas fa-money-bill-wave"></i>
+                        </button>
+                    </div>
+                </center>
+            </div>
+        </form>
     </div>
 </div>
 <?php require_once "footv.php"; ?>

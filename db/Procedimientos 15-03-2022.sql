@@ -22,6 +22,8 @@ create view getAllNotes as select * from notas;
 
 create view lastNote as select max(id_nota) from notas;
 
+create view lastVenta as select max(folio_v) from ventas;
+
 create view getFaltantes as select * from producto where cantidad < 3;
 
 create view getAllPersonal as select p.id_p, p.nombre, p.app, p.apm, p.telefono, u.tipo from persona as p inner join usuarios as u on p.id_p = u.id_us;
@@ -212,6 +214,46 @@ create procedure updatePass(
 	begin
         update usuarios set contra = myPass where persona = idp;
         insert into bitacora(usuario, movimiento,coment) values (id_user,"UPDATE PASS",idp);
+    end
+    $$
+DELIMITER ;
+
+/**********************************************
+* Ventas
+*******************************************************************************************************/
+
+/*****Alta de Venta***/
+DELIMITER $$
+create procedure newVenta1(
+    in id_user int,
+    in total decimal(7,2)
+    )
+	begin
+		declare ticket int;
+		insert into ventas(usuario, total) values(id_user, total);
+        set ticket = last_insert_id();
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"VENTA",ticket);
+    end
+    $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure newVentaProd1(
+    in ticket int,
+    in prod varchar(15),
+    in pricev decimal(7,2),
+    in cant decimal(7,2),
+    in id_user int
+    )
+	begin
+		declare act decimal (7,2) default 0;
+        declare listo decimal(7,2) default 0;
+		insert into venta_prod(ticket, producto,precio_v, cantidad_v) values(ticket, prod, pricev, cant);
+        set act = (select cantidad from producto where codigo = prod);
+        set listo = act - cant;
+        update producto set cantidad = listo where codigo = prod; 
+        insert into bitacora(usuario, movimiento,coment) values (id_user,ticket,prod);
+        
     end
     $$
 DELIMITER ;

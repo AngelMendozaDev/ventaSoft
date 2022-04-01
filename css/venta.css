@@ -1,24 +1,50 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
-.venta-cont{
-     display: flex;
-     width: 100%;
+.venta-cont {
+    display: flex;
+    width: 100%;
 }
 
-.venta-cont .input-group{
+.venta-cont .input-group {
     width: 450px;
     height: 40px;
 }
 
-.venta-cont .form-control{
+.venta-cont .form-control {
     height: 40px;
 }
 
-.venta-cont .btn{
+.venta-cont .btn {
     height: 40px;
     margin-left: 10px;
+}
+
+.campo {
+    min-width: 150px;
+    text-align: center;
+}
+
+.campo-small {
+    min-width: 70px;
+    font-size: 15px;
+    text-align: center;
+}
+
+thead.table-primary.text-center.mx-auto {
+    vertical-align: middle;
+}
+
+.etiqueta {
+    font-size: 25px;
+}
+
+@media(max-width:700px) {
+    .cont-table {
+        width: 100%;
+        overflow-x: scroll;
+    }
 }
