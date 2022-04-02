@@ -46,7 +46,7 @@ CREATE TABLE proveedores(
 
 CREATE TABLE producto(
 	codigo varchar(15) not null,
-    nombre varchar(20) not null,
+    nombre varchar(30) not null,
     unidad varchar(5) not null,
     precio decimal(7,2) not null,
     cantidad decimal(7,2) not null,

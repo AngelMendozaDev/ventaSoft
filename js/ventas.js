@@ -1,7 +1,5 @@
 let objects = [];
-/*
- *
- */
+
 function getProd() {
     codeBar = $('#codeBars').val();
     userCant = 0;
@@ -51,7 +49,6 @@ function getProd() {
 
     $('#codeBars').val("");
 }
-
 
 function contador(code) {
     dato = 0.0;
@@ -139,8 +136,20 @@ function deleteItem(id) {
         $('#btn-pagar').hide();
 }
 
-// funciones de carga
+function Imprime(ticket, pago){
+    object = window.open("http://localhost/ventaSoft/ticket.php?ticket="+ticket+"&p="+pago)
+    swal({
+        title: "Venta confirmada!",
+        text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+        icon: "success"
+    })
+    .then((value) => {
+        object.close();
+        location.reload();
+    });
+}
 
+// funciones de carga
 $(function() {
 
     $('#btn-pagar').hide();
@@ -152,18 +161,23 @@ $(function() {
     });
 
     $('#btn-pagar').click(function() {
-        $.ajax({
-            url: "controllers/addVenta.php",
-            type: 'POST',
-            data: $('#form-compra').serialize(),
-            success: function(response) {
-                console.log(response);
-                res = response.trim();
-                if (res == 1) {
-                    console.log("Imprime")
+        pago = parseFloat(prompt("Pago:"));
+        total = $('#total').val();
+
+        if(pago >= total){
+            $.ajax({
+                url: "controllers/addVenta.php",
+                type: 'POST',
+                data: $('#form-compra').serialize(),
+                success: function(response) {
+                    console.log(response);
+                    res = response.trim();
+                    if (res >= 1) {
+                        Imprime(res,pago);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
 });

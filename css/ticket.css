@@ -1,0 +1,61 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.ticket{
+    width: 200px;
+}
+
+.ticket-head{
+    width: 100%;
+    text-align: center;
+}
+
+.logo{
+    width: 80%;
+    padding: 5px;
+}
+
+.ticket-head h6{
+    text-align: center;
+    font-size: 12px;
+}
+
+.ticket-body{
+    align-items: center;
+    text-align: center;
+}
+
+.ticket-body table{
+    width: 90%;
+    margin: auto;
+}
+
+.ticket table .name{
+    font-size: 10px;
+    width: 90px;
+}
+
+.ticket table .dato{
+    font-size: 15px;
+}
+
+.ticket table td{
+    margin: auto;
+}
+
+.ticket-footer{
+    text-align: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.ticket-footer h2{
+    font-size: 15px;
+}
+
+.ticket-footer h5{
+    font-size: 10px;
+}

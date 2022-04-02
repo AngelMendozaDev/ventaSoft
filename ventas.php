@@ -63,4 +63,5 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
     </div>
 </div>
 <?php require_once "footv.php"; ?>
+<script src="lib/jspdf.js"></script>
 <script src="js/ventas.js"></script>
