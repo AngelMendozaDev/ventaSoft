@@ -1,0 +1,21 @@
+* {
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+}
+
+.my-label {
+    width: 130px;
+}
+
+.campo {
+    width: 40%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.fechas-box {
+    display: flex;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}

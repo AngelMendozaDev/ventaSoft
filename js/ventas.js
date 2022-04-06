@@ -136,17 +136,17 @@ function deleteItem(id) {
         $('#btn-pagar').hide();
 }
 
-function Imprime(ticket, pago){
-    object = window.open("http://localhost/ventaSoft/ticket.php?ticket="+ticket+"&p="+pago)
+function Imprime(ticket, pago) {
+    object = window.open("http://localhost/ventaSoft/ticket.php?ticket=" + ticket + "&p=" + pago)
     swal({
-        title: "Venta confirmada!",
-        text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
-        icon: "success"
-    })
-    .then((value) => {
-        object.close();
-        location.reload();
-    });
+            title: "Venta confirmada!",
+            text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+            icon: "success"
+        })
+        .then((value) => {
+            object.close();
+            location.reload();
+        });
 }
 
 // funciones de carga
@@ -164,7 +164,7 @@ $(function() {
         pago = parseFloat(prompt("Pago:"));
         total = $('#total').val();
 
-        if(pago >= total){
+        if (pago >= total) {
             $.ajax({
                 url: "controllers/addVenta.php",
                 type: 'POST',
@@ -173,11 +173,12 @@ $(function() {
                     console.log(response);
                     res = response.trim();
                     if (res >= 1) {
-                        Imprime(res,pago);
+                        Imprime(res, pago);
                     }
                 }
             });
-        }
+        } else
+            alert("Cantidada invalida");
     });
 
 });
