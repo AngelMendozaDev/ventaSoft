@@ -5,3 +5,15 @@ $('#menu-status').change(function() {
         $('#my-menu').removeClass('activo');
     }
 });
+
+$(function() {
+
+    fecha = new Date();
+
+    day = fecha.getDate() < 10 ? "0" + fecha.getDate() : fecha.getDate;
+    month = fecha.getMonth() + 1 < 10 ? "0" + (fecha.getMonth() + 1) : fecha.getMonth() + 1;
+    year = fecha.getFullYear();
+
+    hoy = year + "-" + month + "-" + day
+    $('#rep_v').attr('href', 'repov.php?fi=' + hoy + '&ff=' + hoy);
+});

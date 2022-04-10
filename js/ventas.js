@@ -137,17 +137,14 @@ function deleteItem(id) {
 }
 
 function Imprime(ticket, pago) {
-    w = window.open("http://localhost/ventaSoft/ticket.php?ticket=" + ticket + "&p=" + pago);
-    w.focus();
-    w.print();
-
+    object = window.open("http://localhost/ventaSoft/ticket.php?ticket=" + ticket + "&p=" + pago)
     swal({
-        title: "Venta confirmada!",
-        text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
-        icon: "success"
-    })
+            title: "Venta confirmada!",
+            text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+            icon: "success"
+        })
         .then((value) => {
-            w.close();
+            object.close();
             location.reload();
         });
 }
@@ -167,6 +164,7 @@ $(function () {
         pago = 0;
         pago = parseFloat(prompt("Pago:"));
         total = $('#total').val();
+<<<<<<< HEAD
             if (pago >= total) {
                 $.ajax({
                     url: "controllers/addVenta.php",
@@ -184,6 +182,24 @@ $(function () {
             else{
                 alert("Entrada Invalida");
             }
+=======
+
+        if (pago >= total) {
+            $.ajax({
+                url: "controllers/addVenta.php",
+                type: 'POST',
+                data: $('#form-compra').serialize(),
+                success: function(response) {
+                    console.log(response);
+                    res = response.trim();
+                    if (res >= 1) {
+                        Imprime(res, pago);
+                    }
+                }
+            });
+        } else
+            alert("Cantidada invalida");
+>>>>>>> fcac995a8c4397da3a7784e9e1439105f50f5c3e
     });
 
 });

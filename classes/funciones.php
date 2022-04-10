@@ -541,5 +541,26 @@ class funciones extends config
         return $result;
     }
 
+/*********************************
+ * Reporte
+ ************************************************/
+    public function repo_ventas($fecha_i, $fecha_f){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        
+        $fi = $fecha_i;
+        $ff = $fecha_f;
+
+        $query = $conexion->prepare("SELECT v.fecha_v, v.folio_v, v.total, p.nombre FROM ventas AS v INNER JOIN persona AS p ON p.id_p = v.usuario WHERE  v.fecha_v >= ? AND v.fecha_v <= ?");
+        $query->bind_param('ss',$fi,$ff);
+        $query->execute();
+        $result = $query->get_result();
+        $query->close();
+
+        return $result;
+    }
+
 }
  
