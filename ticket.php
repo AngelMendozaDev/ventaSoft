@@ -44,6 +44,10 @@
     </div>
 </div>
 
+<button onclick="window.close()">
+    ok
+</button>
+
 <script src="lib/jquery.js"></script>
 <script>
     $(function(){

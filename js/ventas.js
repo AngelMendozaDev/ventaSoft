@@ -8,7 +8,7 @@ function getProd() {
             url: "controllers/getInfo.php",
             type: "post",
             data: { Tipo: "gp", codeBar: codeBar },
-            success: function(response) {
+            success: function (response) {
                 //console.log(response)
                 if (response != "err") {
                     data = JSON.parse(response);
@@ -52,7 +52,7 @@ function getProd() {
 
 function contador(code) {
     dato = 0.0;
-    $.each(objects, function(key, item) {
+    $.each(objects, function (key, item) {
         if (item.codigo == code) {
             dato = item.cant;
             return parseFloat(dato);
@@ -63,7 +63,7 @@ function contador(code) {
 
 function addProd(object) {
     exist = false;
-    $.each(objects, function(key, item) {
+    $.each(objects, function (key, item) {
         if (item.codigo == object.codigo) {
             exist = true;
             objects[key] = object;
@@ -113,7 +113,7 @@ function repaint(data) {
 
 function getTotal() {
     total = 0;
-    $.each(objects, function(key, item) {
+    $.each(objects, function (key, item) {
         total += parseFloat($('#import-' + item.codigo).val());
         //console.log(total)
     });
@@ -125,7 +125,7 @@ function deleteItem(id) {
     keys = 0;
     console.log("Eliminando el Prod " + id)
     $('#item-' + id).remove();
-    $.each(objects, function(key, item) {
+    $.each(objects, function (key, item) {
         if (item.codigo == id)
             keys = key;
     });
@@ -136,48 +136,54 @@ function deleteItem(id) {
         $('#btn-pagar').hide();
 }
 
-function Imprime(ticket, pago){
-    object = window.open("http://localhost/ventaSoft/ticket.php?ticket="+ticket+"&p="+pago)
+function Imprime(ticket, pago) {
+    w = window.open("http://localhost/ventaSoft/ticket.php?ticket=" + ticket + "&p=" + pago);
+    w.focus();
+    w.print();
+
     swal({
         title: "Venta confirmada!",
         text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
         icon: "success"
     })
-    .then((value) => {
-        object.close();
-        location.reload();
-    });
+        .then((value) => {
+            w.close();
+            location.reload();
+        });
 }
 
 // funciones de carga
-$(function() {
+$(function () {
 
     $('#btn-pagar').hide();
 
-    $('#codeBars').keypress(function(evt) {
+    $('#codeBars').keypress(function (evt) {
         if (evt.which == 13) {
             getProd();
         }
     });
 
-    $('#btn-pagar').click(function() {
+    $('#btn-pagar').click(function () {
+        pago = 0;
         pago = parseFloat(prompt("Pago:"));
         total = $('#total').val();
-
-        if(pago >= total){
-            $.ajax({
-                url: "controllers/addVenta.php",
-                type: 'POST',
-                data: $('#form-compra').serialize(),
-                success: function(response) {
-                    console.log(response);
-                    res = response.trim();
-                    if (res >= 1) {
-                        Imprime(res,pago);
+            if (pago >= total) {
+                $.ajax({
+                    url: "controllers/addVenta.php",
+                    type: 'POST',
+                    data: $('#form-compra').serialize(),
+                    success: function (response) {
+                        console.log(response);
+                        res = response.trim();
+                        if (res >= 1) {
+                            Imprime(res, pago);
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
+            else{
+                alert("Entrada Invalida");
+            }
     });
 
 });

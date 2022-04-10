@@ -161,7 +161,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
                         <div class="accordion-body">
                             <ul class="sub-menu">
                                 <li class="sub-menu-item">
-                                    <a href="">
+                                    <a href="repo.php">
                                         <i class="fas fa-chart-line"></i>
                                         &nbsp;
                                         Generar Reporte

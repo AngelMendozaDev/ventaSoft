@@ -4,6 +4,8 @@ INSERT INTO `sucursal` (`id_suc`, `nombre_suc`, `telefono`, `rfc`, `logo`) VALUE
 INSERT INTO `direccion_s` (`id_dirS`, `calle`, `cp`, `alcaldia`, `colonia`) VALUES ('1', 'GUADALUPE VICTORIA #267', '13450', 'TLAHUAC', 'GUADALUPE TLALTENCO');
 
 INSERT INTO `persona` (`id_p`, `nombre`, `app`, `apm`, `sexo` , `telefono`) VALUES (NULL, 'LUIS ANGEL', 'MENDOZA', 'GARCIA','H','5564477055');
+INSERT INTO `persona` (`id_p`, `nombre`, `app`, `apm`, `sexo` , `telefono`) VALUES (NULL, 'REINA', 'RUIZ', 'GUTIERREZ','M','5528910456');
+INSERT INTO `persona` (`id_p`, `nombre`, `app`, `apm`, `sexo` , `telefono`) VALUES (NULL, 'ANA', 'GALVIZ', 'RUIZ','M','5536666796');
 
 INSERT INTO `direccion_p` (`id_dirP`, `calle`, `cp`, `alcaldia`, `colonia`) VALUES ('1', 'GUADALUPE VICTORIA #267', '13450', 'TLAHUAC', 'GUADALUPE TLALTENCO');
 
@@ -11,6 +13,8 @@ INSERT INTO `tipo_us` (`id_tipo`, `tipo`) VALUES (NULL, 'ADMIN');
 INSERT INTO `tipo_us` (`id_tipo`, `tipo`) VALUES (NULL, 'CAJA');
 
 INSERT INTO `usuarios` (`id_us`, `tipo`, `persona`, `usuario`, `contra`) VALUES (NULL, '1', '1', 'ANGEL', '0510');
+INSERT INTO `usuarios` (`id_us`, `tipo`, `persona`, `usuario`, `contra`) VALUES (NULL, '1', '2', 'REINA', '7MAYO');
+INSERT INTO `usuarios` (`id_us`, `tipo`, `persona`, `usuario`, `contra`) VALUES (NULL, '1', '3', 'ANA', '2615');
 /************VIEWS (VISTAS)**************/
 create view getAllProd as  select p.*, m.preciomay, m.cantMay from producto as p left join prod_may as m on m.codigo = p.codigo;
 
