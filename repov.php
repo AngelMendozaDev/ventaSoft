@@ -18,7 +18,7 @@ $total = 0.0;
         <h1>Reporte de ventas</h1>
     </center>
 
-    <button class="btn btn-primary" onclick="getDiario()">
+    <button class="btn btn-primary mb-3" onclick="getDiario()">
         Reporte Diario
     </button>
 
@@ -42,7 +42,7 @@ $total = 0.0;
         </div>
     </div>
     <center>
-        <button class="btn btn-success mb-3">
+        <button class="btn btn-success  mt-3 mb-3">
             Generar Reporte
         </button>
     </center>

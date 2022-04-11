@@ -86,6 +86,9 @@ function addProd(object) {
             "</td>" +
             "<td>" +
             "<input type='text' name='cant[]' id='cant-" + num + "' value='" + object.cant + "' class='form-control campo-small' readonly>" +
+            "<button type='button' class='btn btn-warning btn-small' onclick='changeCant(`" + num + "`)'>" +
+            "<i class='fas fa-edit'></i>" +
+            "</button>" +
             "</td>" +
             "<td>" +
             "<input type='text' id='import-" + num + "' class='form-control campo' value='" + object.price * object.cant + "' readonly>" +
@@ -139,14 +142,18 @@ function deleteItem(id) {
 function Imprime(ticket, pago) {
     object = window.open("http://localhost/ventaSoft/ticket.php?ticket=" + ticket + "&p=" + pago)
     swal({
-            title: "Venta confirmada!",
-            text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
-            icon: "success"
-        })
+        title: "Venta confirmada!",
+        text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+        icon: "success"
+    })
         .then((value) => {
             object.close();
             location.reload();
         });
+}
+
+function changeCant(code){
+    console.log(code)
 }
 
 // funciones de carga
@@ -164,32 +171,12 @@ $(function () {
         pago = 0;
         pago = parseFloat(prompt("Pago:"));
         total = $('#total').val();
-<<<<<<< HEAD
-            if (pago >= total) {
-                $.ajax({
-                    url: "controllers/addVenta.php",
-                    type: 'POST',
-                    data: $('#form-compra').serialize(),
-                    success: function (response) {
-                        console.log(response);
-                        res = response.trim();
-                        if (res >= 1) {
-                            Imprime(res, pago);
-                        }
-                    }
-                });
-            }
-            else{
-                alert("Entrada Invalida");
-            }
-=======
-
         if (pago >= total) {
             $.ajax({
                 url: "controllers/addVenta.php",
                 type: 'POST',
                 data: $('#form-compra').serialize(),
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
                     res = response.trim();
                     if (res >= 1) {
@@ -197,9 +184,10 @@ $(function () {
                     }
                 }
             });
-        } else
-            alert("Cantidada invalida");
->>>>>>> fcac995a8c4397da3a7784e9e1439105f50f5c3e
+        }
+        else {
+            alert("Entrada Invalida");
+        }
     });
 
 });

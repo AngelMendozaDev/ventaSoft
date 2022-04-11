@@ -1,8 +1,8 @@
 function getDiario() {
     fecha = new Date();
 
-    day = fecha.getDate() < 10 ? "0" + fecha.getDate() : fecha.getDate;
-    month = fecha.getMonth() + 1 < 10 ? "0" + (fecha.getMonth() + 1) : fecha.getMonth() + 1;
+    day = fecha.getDate() < 10 ? "0" + fecha.getDate() : fecha.getDate();
+    month = fecha.getMonth() + 1 < 10 ? "0" + (fecha.getMonth() + 1) : (fecha.getMonth() + 1);
     year = fecha.getFullYear();
 
     hoy = year + "-" + month + "-" + day
@@ -11,17 +11,6 @@ function getDiario() {
 
 
 $(function() {
-    // $('#myTable').DataTable({
-    //     scrollY: "400px",
-    //     scrollCollapse: true,
-    //     paging: false,
-    //     dom: 'Bfrtip',
-    //     buttons: [{
-    //         extend: 'print',
-    //         text: 'Imprimir reporte'
-    //     }]
-    // });
-
     $('#myTable').DataTable({
         "footerCallback": function(row, data, start, end, display) {
             var api = this.api();
@@ -64,6 +53,15 @@ $(function() {
     });
 
     $('#f-i').change(function() {
+        if ($('#f-i').val() <= $('#f-f').val()) {
+            location.href = 'repov.php?fi=' + $('#f-i').val() + '&ff=' + $('#f-f').val();
+        } else {
+            alert("Fechas invalidas")
+        }
+
+    });
+
+    $('#f-f').change(function() {
         if ($('#f-i').val() <= $('#f-f').val()) {
             location.href = 'repov.php?fi=' + $('#f-i').val() + '&ff=' + $('#f-f').val();
         } else {

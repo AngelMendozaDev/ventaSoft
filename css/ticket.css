@@ -59,3 +59,18 @@
 .ticket-footer h5{
     font-size: 10px;
 }
+
+.nameProd{
+    font-size: 15px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.person{
+    font-size: 15px;
+    font-weight: 700;
+}
+
+#hora{
+    font-weight: 700;
+}

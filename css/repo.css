@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+.fechas-box{
+    display: flex;
+}
+
+.campo{
+    width: 45%;
+    margin: auto;
+}
+
 .fechas{
     display: flex;
     align-items: center;
