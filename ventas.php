@@ -11,7 +11,7 @@ if (!$_SESSION['ID'] || $_SESSION['ID'] == "")
             <i class="fa fa-times-circle" aria-hidden="true"></i>
         </a>
         <h1 class="display-6">Vendedor: <?php echo $_SESSION['NameUs'] ?></h1>
-        <h3>Fecha: [ <span id="fecha">21-03-2022</span> ]</h3>
+        <h3>Fecha: [ <span id="fecha"></span> ]</h3>
         <hr class="my-2">
     </div>
 </div>

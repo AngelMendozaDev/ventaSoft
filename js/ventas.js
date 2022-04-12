@@ -85,16 +85,13 @@ function addProd(object) {
             "<input type='text' name='preciov[]' id='pricev-" + num + "' value='" + object.price + "' class='form-control campo-small' readonly>" +
             "</td>" +
             "<td>" +
-            "<input type='text' name='cant[]' id='cant-" + num + "' value='" + object.cant + "' class='form-control campo-small' readonly>" +
-            "<button type='button' class='btn btn-warning btn-small' onclick='changeCant(`" + num + "`)'>" +
-            "<i class='fas fa-edit'></i>" +
-            "</button>" +
+            "<input type='number' name='cant[]' id='cant-" + num + "' value='" + object.cant + "' class='form-control campo-small' onchange='changeCant(`" + num + "`)'>" +
             "</td>" +
             "<td>" +
             "<input type='text' id='import-" + num + "' class='form-control campo' value='" + object.price * object.cant + "' readonly>" +
             "</td>" +
             "<td>" +
-            "<button class='btn btn-danger btn-small' onclick=' deleteItem(`" + num.toString() + "`)'>" +
+            "<button type='button' class='btn btn-danger btn-small' onclick=' deleteItem(`" + num.toString() + "`)'>" +
             "<i class='fa fa-trash' aria-hidden='true'></i>" +
             "</button>" +
             "</td>" +
@@ -122,6 +119,11 @@ function getTotal() {
     });
 
     $('#total').val(total)
+    if (total <= 0)
+        $('#btn-pagar').hide();
+    else
+        $('#btn-pagar').show();
+
 }
 
 function deleteItem(id) {
@@ -152,14 +154,74 @@ function Imprime(ticket, pago) {
         });
 }
 
-function changeCant(code){
-    console.log(code)
+function changeCant(code) {
+    userCant = parseInt($('#cant-' + code).val());
+    if (code != "" && userCant > 0) {
+        $.ajax({
+            url: "controllers/getInfo.php",
+            type: "post",
+            data: { Tipo: "gp", codeBar: code },
+            success: function (response) {
+                //console.log(response)
+                if (response != "err") {
+                    data = JSON.parse(response);
+                    //console.log(data);
+                    if (userCant <= data.cantidad && userCant > 0) {
+                        if (data.cantMay == null) {
+                            object = {
+                                codigo: data.codigo,
+                                name: data.nombre,
+                                price: data.precio,
+                                cant: userCant
+                            }
+                        } else {
+                            object = {
+                                codigo: data.codigo,
+                                name: data.nombre,
+                                price: userCant < data.cantMay ? data.precio : data.preciomay,
+                                cant: userCant
+                            }
+                        }
+                        addProd(object)
+                        $('#codeBars').focus();
+
+                    } else {
+                        alert("Stock Insuficiente");
+                        $('#cant-' + code).val("0");
+                        $('#import-' + code).val($('#pricev-' + code).val() * 0)
+                        object = {
+                            codigo: data.codigo,
+                            name: data.nombre,
+                            price: data.precio,
+                            cant: 0
+                        }
+                        addProd(object)
+                        getTotal();
+                    }
+                } else {
+                    alert("El codigo no existe")
+                }
+            }
+        });
+    } else {
+        $('#cant-' + code).val("0");
+        $('#import-' + code).val($('#pricev-' + code).val() * 0)
+        getTotal();
+    }
 }
 
 // funciones de carga
 $(function () {
 
+    f = new Date();
+    d = f.getDate() < 10 ? "0"+f.getDate() : f.getDate();
+    m = (f.getMonth() + 1) < 10 ? "0"+(f.getMonth()+1) : (f.getMonth()+1);
+    y = f.getFullYear();
+
+    hoy = d+"-"+m+"-"+y
+
     $('#btn-pagar').hide();
+    $('#fecha').html(hoy);
 
     $('#codeBars').keypress(function (evt) {
         if (evt.which == 13) {
