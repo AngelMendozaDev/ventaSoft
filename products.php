@@ -47,7 +47,7 @@ $result = $modelo->getProductos();
                         <td>$<?php echo $key['preciomay'] != null ? $key['preciomay'] : 0; ?></td>
                         <td><?php echo $key['cantMay'] != null ? $key['cantMay'] : 0.00; ?></td>
                         <td>
-                            <button class="btn btn-small btn-primary btn-popover">
+                            <button class="btn btn-small btn-primary btn-popover" data-bs-toggle="modal" data-bs-target="#mayModal" onclick="getInfoM('<?php echo $key['codigo'] ?>')">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 <span class="msg-pop">
                                     Agregar Mayoreo
@@ -71,7 +71,7 @@ $result = $modelo->getProductos();
 
 </div>
 
-<!-- Modal -->
+<!-- Modal New-Edit -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -110,7 +110,7 @@ $result = $modelo->getProductos();
                         <input step="any" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" id="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
                     </div>
 
-                    <input type="checkbox" name="mayoreo" id="may">    
+                    <input type="checkbox" name="mayoreo" id="may">
                     <label for="may" style="cursor: pointer;">Tiene Precio de mayoreo</label>
 
                     <hr style="width: 90%; margin: auto; margin-bottom: 0px; margin-top: 10px;">
@@ -128,6 +128,63 @@ $result = $modelo->getProductos();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar Ventana</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ModalMayoreos -->
+<div class="modal fade" id="mayModal" tabindex="-1" aria-labelledby="mayModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mayModalLabel">Agregar Mayoreo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-primary btn-small mb-2" id="btn-more-may">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+
+                <form method="POST" onsubmit="" id="formMay" class="mt-3">
+                    <input type="text" id="prodID" name="prodID">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Cantidad:</span>
+                        <input type="number" class="form-control" id="cantMayA" name="cantMayA" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Precio $:</span>
+                        <input type="number" class="form-control" id="priceMayA" name="priceMayA" required>
+                    </div>
+
+                    <center>
+                        <button type="submit" class="btn btn-success" id="btn-May">
+                            <i class="fas fa-save"></i>
+                            &nbsp;
+                            Guardar Registro
+                        </button>
+                    </center>
+                </form>
+                <br>
+
+                <hr style="width: 80%; color: #000; margin: auto;">
+
+                <div class="may">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lienzo-may">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

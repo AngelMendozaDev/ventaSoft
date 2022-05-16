@@ -64,6 +64,27 @@ class funciones extends config
         return $result;
     }
 
+    public function getInfoMay($code){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("SELECT * FROM prod_may WHERE codigo = ?");
+        $query->bind_param('s',$code);
+        $query->execute();
+        $dato = $query->get_result();
+        $query->close();
+
+        while($data = $dato->fetch_assoc()){
+            $json[] = array(
+                "cant" => $data['cantMay'],
+                "price" => $data['precioMay']
+            );
+        }
+
+        return $json;
+    }
 
     /*******************
      * Crud Productos

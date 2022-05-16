@@ -85,7 +85,7 @@ function addProd(object) {
             "<input type='text' name='preciov[]' id='pricev-" + num + "' value='" + object.price + "' class='form-control campo-small' readonly>" +
             "</td>" +
             "<td>" +
-            "<input type='number' name='cant[]' id='cant-" + num + "' value='" + object.cant + "' class='form-control campo-small' onchange='changeCant(`" + num + "`)'>" +
+            "<input step='any' type='number' name='cant[]' id='cant-" + num + "' value='" + object.cant + "' class='form-control campo-small' onchange='changeCant(`" + num + "`)'>" +
             "</td>" +
             "<td>" +
             "<input type='text' id='import-" + num + "' class='form-control campo' value='" + object.price * object.cant + "' readonly>" +
@@ -143,6 +143,9 @@ function deleteItem(id) {
 
 function Imprime(ticket, pago) {
     object = window.open("http://localhost/ventaSoft/ticket.php?ticket=" + ticket + "&p=" + pago)
+    object.addEventListener('afterprint', (event) => {
+        object.close();
+    });
     swal({
         title: "Venta confirmada!",
         text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
@@ -155,7 +158,7 @@ function Imprime(ticket, pago) {
 }
 
 function changeCant(code) {
-    userCant = parseInt($('#cant-' + code).val());
+    userCant = parseFloat($('#cant-' + code).val());
     if (code != "" && userCant > 0) {
         $.ajax({
             url: "controllers/getInfo.php",
@@ -165,7 +168,9 @@ function changeCant(code) {
                 //console.log(response)
                 if (response != "err") {
                     data = JSON.parse(response);
-                    //console.log(data);
+                    console.log(data);
+                    if(data.unidad == 'PZ')
+                        userCant = parseInt(userCant);
                     if (userCant <= data.cantidad && userCant > 0) {
                         if (data.cantMay == null) {
                             object = {

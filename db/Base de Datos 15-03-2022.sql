@@ -54,10 +54,11 @@ CREATE TABLE producto(
 );
 
 CREATE TABLE prod_may(
+    folio int auto_increment not null,
 	codigo varchar(15) not null,
     precioMay decimal(7,2) not null,
     cantMay decimal(7,2) not null,
-    primary key(codigo),
+    primary key(folio),
     foreign key(codigo) references producto(codigo)
 );
 

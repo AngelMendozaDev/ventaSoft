@@ -3,16 +3,16 @@ function addProd() {
         url: 'controllers/addProduct.php',
         type: 'POST',
         data: $('#formAddProd').serialize(),
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             $('#formAddProd')[0].reset();
             $('#btn-close').click();
             if (response.trim() == 1) {
                 swal({
-                        title: "Producto Guardado, con exíto",
-                        text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
-                        icon: "success"
-                    })
+                    title: "Producto Guardado, con exíto",
+                    text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+                    icon: "success"
+                })
                     .then((value) => {
                         location.reload();
                     });
@@ -34,7 +34,7 @@ function getInfo(codeBar) {
         url: "controllers/getInfo.php",
         type: "POST",
         data: { codeBar: codeBar, Tipo: "gp" },
-        success: function(response) {
+        success: function (response) {
             //console.log(response);
             res = response.trim();
 
@@ -68,13 +68,60 @@ function getInfo(codeBar) {
     });
 }
 
+function getInfoM(codeBar) {
+    $('#formMay').hide();
+    $('#prodID').val("");
+    $('#formMay').hide();
+    $('#btn-more-may').addClass('btn-primary');
+    $('#btn-more-may').removeClass('btn-danger');
+    $('#btn-more-may').html('<i class="fa fa-plus" aria-hidden="true"></i>');
+    $.ajax({
+        url: "controllers/getInfo.php",
+        type: 'POST',
+        data: { Tipo: "getMay", code: codeBar },
+        success: function (response) {
+            //console.log(response);
+            data = JSON.parse(response);
+            console.log(data);
+            $('#lienzo-may').empty();
+            $.each(data, function (key, item) {
+                aux = item.cant.split(".");
+                if (aux[1] != '00')
+                    cant = item.cant;
+                else
+                    cant = aux[0];
+                $('#lienzo-may').append("<tr class='text-center'>" +
+                    "<td>" + cant + "</td>" +
+                    "<td>$" + item.price + "</td>" +
+                    "<td>" +
+                    "<button class='btn btn-warning btn-small' onclick='editMay(`" + codeBar + "`,`" + item.cant + "`,`" + item.price + "`)'>" +
+                    "<i class='fa fa-edit' aria-hidden='true'></i>" +
+                    "</button>" +
+                    "<button class='btn btn-danger btn-small'>" +
+                    "<i class='fa fa-trash' aria-hidden='true'></i>" +
+                    "</button>" +
+                    "</td>" +
+                    "</tr>")
+            });
+        }
+    });
+}
+
+function editMay(code, cant, price) {
+    $('#prodID').val(code);
+    $('#cantMayA').val(cant);
+    $('#priceMayA').val(price);
+    $('#btn-May').html('<i class="fa fa-update" aria-hidden="true"></i> Actualizar');
+}
+
 function closeAlert() {
     $('#descrip').remove();
 }
 
-$(function() {
+$(function () {
     $('#tableProd').dataTable();
-    $('#may').change(function() {
+
+    $('#may').change(function () {
         if ($('#may').prop('checked')) {
             $('#cont-may').append("<div class='input-group mb-3'>" +
                 "<span class='input-group-text'>Precio de mayoreo: $</span>" +
@@ -92,5 +139,24 @@ $(function() {
         } else
             $('#cont-may').empty();
 
-    })
+    });
+
+    $('#btn-more-may').click(function () {
+        if ($('#prodID').val() == "") {
+            $('#prodID').val("N");
+            $('#formMay').show();
+            $('#btn-more-may').removeClass('btn-primary');
+            $('#btn-more-may').addClass('btn-danger');
+            $('#btn-more-may').html('<i class="fa fa-times" aria-hidden="true"></i>');
+            $('#btn-May').html('<i class="fa fa-save" aria-hidden="true"></i> Guardar');
+        }
+        else {
+            $('#prodID').val("");
+            $('#formMay').hide();
+            $('#btn-more-may').addClass('btn-primary');
+            $('#btn-more-may').removeClass('btn-danger');
+            $('#btn-more-may').html('<i class="fa fa-plus" aria-hidden="true"></i>');
+        }
+    });
+
 })
