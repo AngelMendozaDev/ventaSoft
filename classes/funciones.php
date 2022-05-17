@@ -78,6 +78,7 @@ class funciones extends config
 
         while($data = $dato->fetch_assoc()){
             $json[] = array(
+                "folio" => $data['folio'],
                 "cant" => $data['cantMay'],
                 "price" => $data['precioMay']
             );
@@ -582,6 +583,40 @@ class funciones extends config
 
         return $result;
     }
+
+/**************************************************
+ *  Mayoreos
+*********************************************************************/
+    public function setMay($object){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("call newMayoreo1(?,?,?,?)");//user, code, price, cant
+        $query->bind_param('ssss',$object['user'],$object['prodID'], $object['priceMayA'],$object['cantMayA']);
+        $response = $query->execute();
+
+        $query->close();
+
+        return $response;
+    }
+
+    public function upMay($object){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+
+        $query = $conexion->prepare("call upMayoreo1(?,?,?,?)");//user, code, price, cant
+        $query->bind_param('ssss',$object['user'],$object['prodID'], $object['priceMayA'],$object['cantMayA']);
+        $response = $query->execute();
+
+        $query->close();
+
+        return $response;
+    }
+
 
 }
  

@@ -126,6 +126,37 @@ create procedure deleteProv(
     $$
 DELIMITER ;
 
+/************************************
+******** MAYOREO
+*************************************************************************/
+
+DELIMITER $$
+	create procedure newMayoreo1(
+		in id_user int,
+        in codep varchar(15),
+        in price decimal(7,2),
+        in stock decimal (7,2)
+    )begin
+		insert into prod_may(codigo, precioMay, cantMay) values (codep, price, stock);
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"NewMayoreo",codep);
+    end
+ $$
+DELIMITER ;
+
+DELIMITER $$
+	create procedure upMayoreo1(
+		in id_user int,
+        in foliop int,
+        in price decimal(7,2),
+        in stock decimal (7,2)
+    )begin
+		update prod_may set precioMay=price, cantMay=stock where folio = foliop;
+        insert into bitacora(usuario, movimiento,coment) values (id_user,"updateMay",foliop);
+    end
+ $$
+DELIMITER ;
+
+
 /************************************************************************************************************************
 *************Notes**
 *******/

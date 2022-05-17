@@ -70,7 +70,7 @@ function getInfo(codeBar) {
 
 function getInfoM(codeBar) {
     $('#formMay').hide();
-    $('#prodID').val("");
+    $('#prodID').val(codeBar);
     $('#formMay').hide();
     $('#btn-more-may').addClass('btn-primary');
     $('#btn-more-may').removeClass('btn-danger');
@@ -94,7 +94,7 @@ function getInfoM(codeBar) {
                     "<td>" + cant + "</td>" +
                     "<td>$" + item.price + "</td>" +
                     "<td>" +
-                    "<button class='btn btn-warning btn-small' onclick='editMay(`" + codeBar + "`,`" + item.cant + "`,`" + item.price + "`)'>" +
+                    "<button class='btn btn-warning btn-small' onclick='editMay(`" + codeBar + "`,`"+item.folio+" `,`" + item.cant + "`,`" + item.price + "`)'>" +
                     "<i class='fa fa-edit' aria-hidden='true'></i>" +
                     "</button>" +
                     "<button class='btn btn-danger btn-small'>" +
@@ -107,11 +107,38 @@ function getInfoM(codeBar) {
     });
 }
 
-function editMay(code, cant, price) {
-    $('#prodID').val(code);
+function editMay(code,folio, cant, price) {
+    $('#prodID').val(code+"-"+folio);
+    $('#types').val("M");
     $('#cantMayA').val(cant);
     $('#priceMayA').val(price);
-    $('#btn-May').html('<i class="fa fa-update" aria-hidden="true"></i> Actualizar');
+    $('#btn-May').html('<i class="fa fa-sync" aria-hidden="true"></i> Actualizar');
+    $('#formMay').show();
+    $('#btn-more-may').removeClass('btn-primary');
+    $('#btn-more-may').addClass('btn-danger');
+    $('#btn-more-may').html('<i class="fa fa-times" aria-hidden="true"></i>');
+}
+
+function setMayoreo() {
+    $.ajax({
+        url: 'controllers/addMayoreo.php',
+        type: 'POST',
+        data: $("#formMay").serialize(),
+        success: function (response) {
+            console.log(response);
+            if (response.trim() == '1') {
+                swal({
+                    title: "Mayoreo guardado, con exíto",
+                    text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+                    icon: "success"
+                })
+                    .then((value) => {
+                        getInfoM($('#prodID').val());
+                    });
+            }
+        }
+    });
+    return false;
 }
 
 function closeAlert() {
@@ -142,8 +169,8 @@ $(function () {
     });
 
     $('#btn-more-may').click(function () {
-        if ($('#prodID').val() == "") {
-            $('#prodID').val("N");
+        if ($('#types').val() == "") {
+            $('#types').val("N");
             $('#formMay').show();
             $('#btn-more-may').removeClass('btn-primary');
             $('#btn-more-may').addClass('btn-danger');
@@ -151,7 +178,7 @@ $(function () {
             $('#btn-May').html('<i class="fa fa-save" aria-hidden="true"></i> Guardar');
         }
         else {
-            $('#prodID').val("");
+            $('#types').val("");
             $('#formMay').hide();
             $('#btn-more-may').addClass('btn-primary');
             $('#btn-more-may').removeClass('btn-danger');

@@ -146,8 +146,10 @@ $result = $modelo->getProductos();
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
 
-                <form method="POST" onsubmit="" id="formMay" class="mt-3">
-                    <input type="text" id="prodID" name="prodID">
+                <form method="POST" onsubmit="return setMayoreo()" id="formMay" class="mt-3">
+                    <input type="text" id="prodID" name="prodID" readonly hidden>
+                    <input type="text" id="types" name="types" readonly>
+                    <input type="text" value="<?php echo $_SESSION['ID'] ?>" name="user" hidden readonly>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Cantidad:</span>
                         <input type="number" class="form-control" id="cantMayA" name="cantMayA" required>
