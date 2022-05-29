@@ -32,8 +32,7 @@ $result = $modelo->getProductos();
                     <th>Nombre</th>
                     <th>Unidad de Venta</th>
                     <th>Precio</th>
-                    <th>Precio May.</th>
-                    <th>Cant May.</th>
+                    <th>Mayoreo</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -44,8 +43,7 @@ $result = $modelo->getProductos();
                         <td><?php echo $key['nombre'] ?></td>
                         <td><?php echo $key['unidad'] ?></td>
                         <td>$<?php echo $key['precio'] ?></td>
-                        <td>$<?php echo $key['preciomay'] != null ? $key['preciomay'] : 0; ?></td>
-                        <td><?php echo $key['cantMay'] != null ? $key['cantMay'] : 0.00; ?></td>
+                        <td><?php echo $key['may'] > 0 ? "<i class='fas fa-check'></i>".$key['may'] : "<i class='fas fa-times'></i>" ?></td>
                         <td>
                             <button class="btn btn-small btn-primary btn-popover" data-bs-toggle="modal" data-bs-target="#mayModal" onclick="getInfoM('<?php echo $key['codigo'] ?>')">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -110,8 +108,8 @@ $result = $modelo->getProductos();
                         <input step="any" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="price" id="price" placeholder="Precio por Pieza, Litro o Kilogramo" required>
                     </div>
 
-                    <input type="checkbox" name="mayoreo" id="may">
-                    <label for="may" style="cursor: pointer;">Tiene Precio de mayoreo</label>
+                    <!--input type="checkbox" name="mayoreo" id="may">
+                    <label-- for="may" style="cursor: pointer;">Tiene Precio de mayoreo</label-->
 
                     <hr style="width: 90%; margin: auto; margin-bottom: 0px; margin-top: 10px;">
 
@@ -156,7 +154,7 @@ $result = $modelo->getProductos();
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Precio $:</span>
-                        <input type="number" class="form-control" id="priceMayA" name="priceMayA" required>
+                        <input type="number" step="any" class="form-control" id="priceMayA" name="priceMayA" required>
                     </div>
 
                     <center>
@@ -174,7 +172,7 @@ $result = $modelo->getProductos();
                 <div class="may">
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>Cantidad</th>
                                 <th>Precio</th>
                                 <th>Acciones</th>

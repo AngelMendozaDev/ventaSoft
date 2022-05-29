@@ -110,13 +110,13 @@ class funciones extends config
 
         $query->close();
 
-        if ($response == 1 && $edo == 1) {
+       /* if ($response == 1 && $edo == 1) {
             $query = $conexion->prepare("CALL newProdMay(?,?,?)");
             $query->bind_param('sss', $object['codeBars'], $object['priceMay'], $object['cantMay']);
             $response = $query->execute();
 
             $query->close();
-        }
+        }*/
 
         return $response;
     }
@@ -182,6 +182,21 @@ class funciones extends config
         $query->close();
 
         return $response;
+    }
+
+    public function deleteMay($code){
+        $conexion = config::conexion();
+
+        if ($conexion == false)
+            return 3;
+        
+        $query = $conexion->prepare("DELETE FROM prod_may WHERE folio = ?");
+        $query->bind_param('s',$code);
+        $result = $query->execute();
+
+        $query->close();
+
+        return $result;
     }
 
     /**************************************
@@ -608,8 +623,10 @@ class funciones extends config
         if ($conexion == false)
             return 3;
 
+        $aux = explode("-",$object['prodID']);
+
         $query = $conexion->prepare("call upMayoreo1(?,?,?,?)");//user, code, price, cant
-        $query->bind_param('ssss',$object['user'],$object['prodID'], $object['priceMayA'],$object['cantMayA']);
+        $query->bind_param('ssss',$object['user'],$aux[1], $object['priceMayA'],$object['cantMayA']);
         $response = $query->execute();
 
         $query->close();

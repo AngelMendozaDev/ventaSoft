@@ -97,7 +97,7 @@ function getInfoM(codeBar) {
                     "<button class='btn btn-warning btn-small' onclick='editMay(`" + codeBar + "`,`"+item.folio+" `,`" + item.cant + "`,`" + item.price + "`)'>" +
                     "<i class='fa fa-edit' aria-hidden='true'></i>" +
                     "</button>" +
-                    "<button class='btn btn-danger btn-small'>" +
+                    "<button class='btn btn-danger btn-small' onclick='deleteMayoreo(`" + item.folio + "`)'> " +
                     "<i class='fa fa-trash' aria-hidden='true'></i>" +
                     "</button>" +
                     "</td>" +
@@ -133,7 +133,8 @@ function setMayoreo() {
                     icon: "success"
                 })
                     .then((value) => {
-                        getInfoM($('#prodID').val());
+                        val = $('#prodID').val().split("-");
+                        getInfoM(val[0]);
                     });
             }
         }
@@ -143,6 +144,44 @@ function setMayoreo() {
 
 function closeAlert() {
     $('#descrip').remove();
+}
+
+function deleteMayoreo(code){
+    swal({
+        title: "Desea eliminar el registro",
+        text: "Una vez eliminado esta accion no se podra deshacer",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"controllers/delete.php",
+                type:'POST',
+                data:{code},
+                success:function(response){
+                    console.log(response);
+                    if(response.trim() == '1'){
+                        swal({
+                            title: "Poof! Se elimino",
+                            text: "LUMEGA-MX ESTUDIO [MARZO 2022]",
+                            icon: "success"
+                        })
+                            .then((value) => {
+                                val = $('#prodID').val().split("-");
+                                getInfoM(val[0]);
+                            });
+                    }
+                    else{
+                        swal("OooS! Algo salio mal :(", {
+                            icon: "error",
+                          });
+                    }
+                }
+            });
+        }
+      });
 }
 
 $(function () {

@@ -16,7 +16,7 @@ INSERT INTO `usuarios` (`id_us`, `tipo`, `persona`, `usuario`, `contra`) VALUES 
 INSERT INTO `usuarios` (`id_us`, `tipo`, `persona`, `usuario`, `contra`) VALUES (NULL, '1', '2', 'REINA', '7MAYO');
 INSERT INTO `usuarios` (`id_us`, `tipo`, `persona`, `usuario`, `contra`) VALUES (NULL, '1', '3', 'ANA', '2615');
 /************VIEWS (VISTAS)**************/
-create view getAllProd as  select p.*, m.preciomay, m.cantMay from producto as p left join prod_may as m on m.codigo = p.codigo;
+create view getAllProd as  SELECT p.codigo, p.nombre, p.unidad, p.precio, count(m.codigo) as may FROM producto AS p LEFT JOIN prod_may AS m ON p.codigo = m.codigo GROUP BY p.codigo;
 
 create view getAllProv as select * from proveedores where estatus > 0;
 
