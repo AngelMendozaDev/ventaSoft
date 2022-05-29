@@ -2,6 +2,7 @@ let objects = [];
 
 function getProd() {
     codeBar = $('#codeBars').val();
+    code = codeBar;
     userCant = 0;
     if (codeBar != "" && codeBar != null) {
         $.ajax({
@@ -48,6 +49,22 @@ function getProd() {
         alert("Llena los campos");
 
     $('#codeBars').val("");
+}
+
+function getMay(code, cant){
+    $.ajax({
+        url:"controllers/getInfo.php",
+        type:'POST',
+        data:{Tipo:"getMay", code},
+        success:function(response){
+            data = JSON.parse(response);
+            if(data.length > 1){
+                $.each(data,function(item,key){
+                    console.log(item.cant)//sssssssssssssssssssssssssssssss
+                });
+            }
+        }
+    });
 }
 
 function contador(code) {
